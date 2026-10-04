@@ -442,8 +442,8 @@ on conflict (slug) do nothing;
 insert into public.banners (title, subtitle, image_url, link_url, is_active, sort_order)
 select b.title, b.subtitle, null, b.link_url, true, b.sort_order
 from (values
-  ('Laptops & Phones in Ogoja',
-   'Quality devices, honest prices and after-sale support. Every order is confirmed with you on WhatsApp.',
+  ('Office Equipment & More in Ogoja',
+   'New and A1 London-used office equipment, honest prices and after-sale support. Every order is confirmed with you on WhatsApp.',
    '/shop', 1),
 
   ('Starlink Installation, Done Right',

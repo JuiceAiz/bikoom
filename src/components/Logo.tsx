@@ -20,7 +20,7 @@ export function LogoMark({ className = "h-10 w-10" }: { className?: string }) {
   );
 }
 
-/** Wordmark: "Bikoom" + " Store". */
+/** Wordmark: "Bikoom" + " Stores". */
 export function Wordmark({
   className,
   tone = "dark",
@@ -38,7 +38,7 @@ export function Wordmark({
     >
       {brand.shortName}
       <span className={tone === "dark" ? "text-brand-600" : "text-brand-300"}>
-        {" "}Store
+        {brand.name.slice(brand.shortName.length)}
       </span>
     </span>
   );

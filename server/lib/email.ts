@@ -49,7 +49,7 @@ export async function sendEmail(options: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: config.resendFrom || "Bikoom Store <onboarding@resend.dev>",
+          from: config.resendFrom || "Bikoom Stores <onboarding@resend.dev>",
           to: recipients,
           subject: options.subject,
           text: options.text,
@@ -102,7 +102,7 @@ export async function sendEmail(options: {
 
 function orderText(order: OrderRequest, items: OrderRequestItem[]): string {
   const lines = [
-    "New order request from the Bikoom Store website.",
+    "New order request from the Bikoom Stores website.",
     "",
     `Customer: ${order.customer_name}`,
     `Phone / WhatsApp: ${order.customer_phone}`,
@@ -155,7 +155,7 @@ export async function notifyNewDelivery(
     to: [config.contactEmail],
     subject: `New delivery / waybill request — ${req.name}`,
     text: [
-      "New delivery / waybill request from the Bikoom Store website.",
+      "New delivery / waybill request from the Bikoom Stores website.",
       "",
       `Name: ${req.name}`,
       `Phone / WhatsApp: ${req.phone}`,

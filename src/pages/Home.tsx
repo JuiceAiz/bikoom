@@ -101,7 +101,7 @@ export default function Home() {
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-300 sm:text-lg">
               {hero?.subtitle ??
-                "Laptops, phones, furniture, Starlink installation and office services — with every order confirmed with you personally on WhatsApp."}
+                "New and A1 London-used office equipment, furniture, Starlink installation and services — with every order confirmed with you personally on WhatsApp."}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/shop" className={buttonClass("primary", "lg", "shadow-lg shadow-brand-900/40")}>

@@ -70,7 +70,7 @@ const QUERIES = {
 };
 
 const BANNER_QUERIES = {
-  "Laptops & Phones in Ogoja": ["laptop smartphone desk", "laptop computer desk"],
+  "Office Equipment & More in Ogoja": ["office equipment desk", "laptop computer desk"],
   "Starlink Installation, Done Right": ["Starlink dish", "Starlink antenna"],
   "Photocopying & Printing — Ogoja Only": ["photocopier office", "office printer"],
 };

@@ -192,7 +192,7 @@ export function AdminOrders() {
                   </div>
                   <a
                     href={waLink(
-                      `Hello ${order.customer_name}, this is Bikoom Store replying to your order request from the website. Let's confirm your items, final prices and delivery.`,
+                      `Hello ${order.customer_name}, this is Bikoom Stores replying to your order request from the website. Let's confirm your items, final prices and delivery.`,
                       waNumberFromPhone(order.customer_phone),
                     )}
                     target="_blank"

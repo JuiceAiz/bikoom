@@ -22,7 +22,7 @@ export const config = {
 
   // Resend
   resendApiKey: str(env.RESEND_API_KEY),
-  resendFrom: str(env.RESEND_FROM || "Bikoom Store <onboarding@resend.dev>"),
+  resendFrom: str(env.RESEND_FROM || "Bikoom Stores <onboarding@resend.dev>"),
 
   // Store operations
   contactEmail: str(env.CONTACT_EMAIL),

@@ -116,7 +116,7 @@ export default function Shop() {
         </h1>
         <p className="mt-2 max-w-2xl text-sm leading-relaxed text-ink-500">
           {activeCategory?.description ??
-            "Browse every product from the Bikoom Store. Prices shown are displayed prices — final pricing is confirmed with you on WhatsApp."}
+            "Browse every product from Bikoom Stores. Prices shown are displayed prices — final pricing is confirmed with you on WhatsApp."}
         </p>
       </div>
 
