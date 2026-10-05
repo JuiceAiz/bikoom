@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import type { Banner } from "../../../shared/types";
 import { api } from "../../lib/api";
+import { useRealtimeRefresh } from "../../lib/realtime";
 import { ImageInput } from "../../components/ImageInput";
 import { IconPlus, IconTrash } from "../../components/icons";
 import {
@@ -154,8 +155,8 @@ export function AdminBanners() {
   const [creating, setCreating] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const load = useCallback(() => {
-    setLoadState("loading");
+  const load = useCallback((silent = false) => {
+    if (!silent) setLoadState("loading");
     api
       .admin.banners()
       .then((data) => {
@@ -169,6 +170,8 @@ export function AdminBanners() {
   }, []);
 
   useEffect(load, [load]);
+
+  useRealtimeRefresh(["banners"], load);
 
   const handleCreate = async () => {
     setCreating(true);

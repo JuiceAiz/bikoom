@@ -12,6 +12,7 @@ import {
   cn,
 } from "../components/ui";
 import { requireSupabase } from "../lib/supabaseClient";
+import { useRealtimeRefresh } from "../lib/realtime";
 
 type LoadState = "loading" | "ready" | "error";
 
@@ -39,8 +40,8 @@ export default function Shop() {
   const [inStockOnly, setInStockOnly] = useState(false);
   const [sort, setSort] = useState("newest");
 
-  const load = useCallback(() => {
-    setLoadState("loading");
+  const load = useCallback((silent = false) => {
+    if (!silent) setLoadState("loading");
     const supabase = requireSupabase();
     Promise.all([
       supabase
@@ -63,6 +64,8 @@ export default function Shop() {
   }, []);
 
   useEffect(load, [load]);
+
+  useRealtimeRefresh(["products", "categories"], load);
 
   const activeCategory = useMemo(
     () => categories.find((category) => category.slug === categorySlug) ?? null,

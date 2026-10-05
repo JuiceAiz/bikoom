@@ -21,6 +21,7 @@ import {
 } from "../components/ui";
 import { useCart } from "../context/CartContext";
 import { productChatLink } from "../lib/whatsapp";
+import { useRealtimeRefresh } from "../lib/realtime";
 import { requireSupabase } from "../lib/supabaseClient";
 
 type LoadState = "loading" | "ready" | "error";
@@ -36,9 +37,9 @@ export default function ProductDetail() {
   const [imageIndex, setImageIndex] = useState(0);
   const [added, setAdded] = useState(false);
 
-  const load = useCallback(() => {
+  const load = useCallback((silent = false) => {
     if (!slug) return;
-    setLoadState("loading");
+    if (!silent) setLoadState("loading");
     setNotFound(false);
     const supabase = requireSupabase();
     void (async () => {
@@ -73,6 +74,8 @@ export default function ProductDetail() {
   }, [slug]);
 
   useEffect(load, [load]);
+
+  useRealtimeRefresh(["products"], load);
   useEffect(() => {
     setQuantity(1);
     setImageIndex(0);

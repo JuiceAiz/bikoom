@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import type { Product } from "../../../shared/types";
 import { api } from "../../lib/api";
+import { useRealtimeRefresh } from "../../lib/realtime";
 import { ProductImage } from "../../components/ProductImage";
 import {
   IconPencil,
@@ -28,8 +29,8 @@ export function AdminProducts() {
   const [deleting, setDeleting] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  const load = useCallback(() => {
-    setLoadState("loading");
+  const load = useCallback((silent = false) => {
+    if (!silent) setLoadState("loading");
     api
       .admin.products()
       .then((data) => {
@@ -43,6 +44,8 @@ export function AdminProducts() {
   }, []);
 
   useEffect(load, [load]);
+
+  useRealtimeRefresh(["products", "categories"], load);
 
   const visible = useMemo(() => {
     const search = query.trim().toLowerCase();

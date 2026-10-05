@@ -289,6 +289,46 @@ revoke execute on function public.promote_admin(text) from public;
 revoke execute on function public.promote_admin(text) from anon;
 revoke execute on function public.promote_admin(text) from authenticated;
 grant execute on function public.promote_admin(text) to service_role;
+
+-- ------------------------------------------------------------
+-- Realtime — instant two-way sync between the website and the
+-- mobile app. Postgres changes are only delivered for tables in
+-- this publication, and only to subscribers allowed by RLS.
+-- ------------------------------------------------------------
+do $$
+declare t text;
+begin
+  if not exists (select 1 from pg_publication where pubname = 'supabase_realtime') then
+    create publication supabase_realtime;
+  end if;
+  foreach t in array array['products','categories','banners','order_requests','delivery_requests'] loop
+    if not exists (
+      select 1 from pg_publication_tables
+      where pubname = 'supabase_realtime'
+        and schemaname = 'public' and tablename = t
+    ) then
+      execute format('alter publication supabase_realtime add table public.%I', t);
+    end if;
+  end loop;
+end $$;
+
+-- Admins see live order/delivery requests (RLS also gates realtime
+-- events). Promote your account first: select public.promote_admin('you@gmail.com');
+drop policy if exists "orders_select_admin" on public.order_requests;
+create policy "orders_select_admin"
+  on public.order_requests for select
+  to authenticated
+  using (exists (
+    select 1 from public.profiles p where p.id = auth.uid() and p.is_admin = true
+  ));
+
+drop policy if exists "delivery_select_admin" on public.delivery_requests;
+create policy "delivery_select_admin"
+  on public.delivery_requests for select
+  to authenticated
+  using (exists (
+    select 1 from public.profiles p where p.id = auth.uid() and p.is_admin = true
+  ));
 -- ============================================================
 -- Bikoom Store — demo seed data
 -- Run AFTER schema.sql in the Supabase SQL editor.

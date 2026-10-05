@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { OrderRequest, RequestStatus } from "../../../shared/types";
 import { REQUEST_STATUSES } from "../../../shared/types";
 import { api } from "../../lib/api";
+import { useRealtimeRefresh } from "../../lib/realtime";
 import { formatDate, formatNaira } from "../../lib/format";
 import { waNumberFromPhone, waLink } from "../../lib/whatsapp";
 import { IconWhatsApp } from "../../components/icons";
@@ -30,8 +31,8 @@ export function AdminOrders() {
   const [filter, setFilter] = useState<"all" | RequestStatus>("all");
   const [updating, setUpdating] = useState<string | null>(null);
 
-  const load = useCallback(() => {
-    setLoadState("loading");
+  const load = useCallback((silent = false) => {
+    if (!silent) setLoadState("loading");
     api
       .admin.orders()
       .then((data) => {
@@ -45,6 +46,8 @@ export function AdminOrders() {
   }, []);
 
   useEffect(load, [load]);
+
+  useRealtimeRefresh(["order_requests"], load);
 
   const visible = useMemo(
     () =>

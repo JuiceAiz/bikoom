@@ -7,6 +7,7 @@ import { ProductImage } from "../components/ProductImage";
 import { IconArrowRight, IconCheck, IconMapPin, IconPackage, IconTruck, IconWhatsApp } from "../components/icons";
 import { ErrorState, buttonClass, Spinner, cn } from "../components/ui";
 import { buildGeneralMessage, waLink } from "../lib/whatsapp";
+import { useRealtimeRefresh } from "../lib/realtime";
 import { requireSupabase } from "../lib/supabaseClient";
 
 type LoadState = "loading" | "ready" | "error";
@@ -33,8 +34,8 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [state, setState] = useState<LoadState>("loading");
 
-  const load = useCallback(() => {
-    setState("loading");
+  const load = useCallback((silent = false) => {
+    if (!silent) setState("loading");
     const supabase = requireSupabase();
     Promise.all([
       supabase
@@ -64,6 +65,9 @@ export default function Home() {
   }, []);
 
   useEffect(load, [load]);
+
+  // Instant sync: edits made in the app (or dashboard) refresh the page.
+  useRealtimeRefresh(["products", "categories", "banners"], load);
 
   const hero = banners[0];
   const featured = products.filter((p) => p.is_featured).slice(0, 8);

@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { Category } from "../../../shared/types";
 import { slugify } from "../../../shared/util";
 import { api } from "../../lib/api";
+import { useRealtimeRefresh } from "../../lib/realtime";
 import { IconPencil, IconPlus, IconTrash } from "../../components/icons";
 import {
   Button,
@@ -31,8 +32,8 @@ export function AdminCategories() {
   const [error, setError] = useState<string | null>(null);
   const [fieldError, setFieldError] = useState<string | null>(null);
 
-  const load = useCallback(() => {
-    setLoadState("loading");
+  const load = useCallback((silent = false) => {
+    if (!silent) setLoadState("loading");
     api
       .admin.categories()
       .then((data) => {
@@ -46,6 +47,8 @@ export function AdminCategories() {
   }, []);
 
   useEffect(load, [load]);
+
+  useRealtimeRefresh(["categories", "products"], load);
 
   const startEdit = (category: Category) => {
     setEditingId(category.id);

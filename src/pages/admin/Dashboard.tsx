@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { api, type AdminStats } from "../../lib/api";
 import { formatDate, formatNaira } from "../../lib/format";
+import { useRealtimeRefresh } from "../../lib/realtime";
 import {
   Badge,
   Button,
@@ -29,8 +30,8 @@ export function AdminDashboard() {
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [loadState, setLoadState] = useState<LoadState>("loading");
 
-  const load = useCallback(() => {
-    setLoadState("loading");
+  const load = useCallback((silent = false) => {
+    if (!silent) setLoadState("loading");
     api
       .admin.stats()
       .then((data) => {
@@ -44,6 +45,11 @@ export function AdminDashboard() {
   }, []);
 
   useEffect(load, [load]);
+
+  useRealtimeRefresh(
+    ["products", "categories", "order_requests", "delivery_requests"],
+    load,
+  );
 
   if (loadState === "loading") {
     return (
