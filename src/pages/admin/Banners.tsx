@@ -16,9 +16,11 @@ import {
 function BannerCard({
   banner,
   onDelete,
+  onSaved,
 }: {
   banner: Banner;
   onDelete: (banner: Banner) => void;
+  onSaved: (banner: Banner) => void;
 }) {
   const [title, setTitle] = useState(banner.title);
   const [subtitle, setSubtitle] = useState(banner.subtitle ?? "");
@@ -47,7 +49,7 @@ function BannerCard({
     setError(null);
     setMessage(null);
     try {
-      await api.admin.updateBanner(banner.id, {
+      const updated = await api.admin.updateBanner(banner.id, {
         title: title.trim(),
         subtitle: subtitle.trim(),
         linkUrl: linkUrl.trim(),
@@ -55,6 +57,7 @@ function BannerCard({
         isActive,
         sortOrder: Number(sortOrder) || 0,
       });
+      onSaved(updated);
       setMessage("Saved ✓");
       window.setTimeout(() => setMessage(null), 2000);
     } catch (err) {
@@ -241,7 +244,16 @@ export function AdminBanners() {
       ) : (
         <ul className="space-y-4">
           {banners.map((banner) => (
-            <BannerCard key={banner.id} banner={banner} onDelete={handleDelete} />
+            <BannerCard
+              key={banner.id}
+              banner={banner}
+              onDelete={handleDelete}
+              onSaved={(updated) =>
+                setBanners((prev) =>
+                  prev.map((item) => (item.id === updated.id ? updated : item)),
+                )
+              }
+            />
           ))}
         </ul>
       )}
