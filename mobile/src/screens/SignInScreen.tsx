@@ -1,4 +1,5 @@
 import { useNavigation } from "@react-navigation/native";
+import * as Linking from "expo-linking";
 import { useState } from "react";
 import { ScrollView, Text, View } from "react-native";
 
@@ -11,6 +12,9 @@ export default function SignInScreen() {
   const { signInWithGoogle, session } = useAuth();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // The exact redirect URL this app instance uses — add this to Supabase.
+  const redirectUri = Linking.createURL("auth/callback");
 
   const handleSignIn = async () => {
     setBusy(true);
@@ -68,6 +72,40 @@ export default function SignInScreen() {
           accounts.
         </Text>
 
+        {/* DEV HINT — shows the exact redirect URL needed in Supabase */}
+        {__DEV__ ? (
+          <View
+            style={{
+              alignSelf: "stretch",
+              backgroundColor: "#FFF8E1",
+              borderRadius: 10,
+              borderWidth: 1,
+              borderColor: "#FFD54F",
+              padding: 12,
+              gap: 4,
+            }}
+          >
+            <Text style={{ fontSize: 11, fontWeight: "700", color: "#E65100" }}>
+              ⚙️ SIGN-IN RETURN URL (this app instance)
+            </Text>
+            <Text
+              style={{
+                fontSize: 11,
+                color: "#BF360C",
+                fontFamily: "monospace",
+                marginTop: 4,
+              }}
+              selectable
+            >
+              {redirectUri}
+            </Text>
+            <Text style={{ fontSize: 10, color: "#795548", marginTop: 4 }}>
+              Returned automatically via the site&apos;s /api/mobile-auth hop —
+              no Supabase Redirect URL entry needed.
+            </Text>
+          </View>
+        ) : null}
+
         {error ? (
           <Callout tone="warning">
             <Text style={{ fontWeight: "700" }}>{error}</Text>
@@ -89,8 +127,6 @@ export default function SignInScreen() {
             onPress={() => navigation.goBack()}
           />
         </View>
-
-
       </View>
     </ScrollView>
   );

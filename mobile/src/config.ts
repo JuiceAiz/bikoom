@@ -32,6 +32,15 @@ export const API_URL = (
   process.env.EXPO_PUBLIC_API_URL ?? "https://bikoom.vercel.app"
 ).replace(/\/+$/, "");
 
+/**
+ * Public site origin. The Google sign-in flow returns here first
+ * (/api/mobile-auth) and hops back into the app, because Supabase
+ * rejects Expo Go's exp://<LAN-IP> redirect URLs outright.
+ */
+export const SITE_URL = (
+  process.env.EXPO_PUBLIC_SITE_URL ?? "https://bikoom.vercel.app"
+).replace(/\/+$/, "");
+
 export const SUPABASE_URL = (
   process.env.EXPO_PUBLIC_SUPABASE_URL ?? ""
 ).trim();

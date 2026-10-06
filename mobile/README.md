@@ -21,17 +21,31 @@ npx expo start       # scan the QR code with Expo Go
   "Realtime" section). Without it the app still works — it just refreshes
   on pull/manual loads.
 
-## Google sign-in (one-time setup)
+## Google sign-in (how it works)
 
-The app signs in through Supabase OAuth with a deep link redirect. Add
-these to **Supabase dashboard → Authentication → URL Configuration →
-Redirect URLs**:
+Supabase Auth **rejects any redirect URL whose host is a non-loopback IP
+address before it ever checks the Redirect URLs allow list** — and Expo
+Go always produces `exp://<LAN-IP>:8081/...`. That is why editing the
+Supabase redirect URLs never helped: the browser silently fell back to
+the Site URL (the website) after Google.
 
-- `bikoom://auth/callback` — production / dev builds
-- `exp://**` — development via Expo Go (remove before release)
+The app therefore sends the OAuth flow through the site's hop endpoint
+instead:
 
-The Google Cloud OAuth client needs no change: Supabase's own
-`/auth/v1/callback` is already authorized.
+1. App opens `…/api/mobile-auth?next=<deep link>` (allowed — same host
+   as the Site URL).
+2. Google → Supabase → the hop page, carrying the PKCE `code`.
+3. The hop page redirects to `next` (e.g. `exp://…/--/auth/callback?code=…`
+   in Expo Go, `bikoom://auth/callback?code=…` in a build).
+4. `openAuthSessionAsync` receives the deep link, the app exchanges the
+   code, and the session is stored in AsyncStorage.
+
+No Supabase Redirect URLs entries are required for this anymore (the
+Site URL host always passes validation). `bikoom://auth/callback` and
+`exp://**` may stay on the allow list — they are harmless — and cover a
+direct deep-link redirect if you ever choose to bypass the hop.
+
+Server side: `server/index.ts` (`GET /api/mobile-auth`) + `api/mobile-auth.ts`.
 
 Admin accounts also need `profiles.is_admin = true` (SQL editor:
 `select public.promote_admin('your@email.com');`) — otherwise the admin
