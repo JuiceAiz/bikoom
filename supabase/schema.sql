@@ -131,6 +131,35 @@ create policy "banners_read"
   using (true);
 
 -- ------------------------------------------------------------
+-- Cart — server-side cart for signed-in customers, so the same
+-- account shows the same cart on the website and in the app.
+-- Anonymous carts stay in local storage and are merged in
+-- (max quantity per product) when the customer signs in.
+-- ------------------------------------------------------------
+create table if not exists public.cart_items (
+  user_id uuid not null references auth.users (id) on delete cascade,
+  product_id uuid not null references public.products (id) on delete cascade,
+  slug text not null default '',
+  name text not null,
+  price numeric(12, 2),
+  show_price boolean not null default true,
+  image_url text,
+  quantity integer not null default 1 check (quantity between 1 and 99),
+  updated_at timestamptz not null default now(),
+  primary key (user_id, product_id)
+);
+
+alter table public.cart_items enable row level security;
+
+-- Each customer only ever sees and touches their own cart.
+drop policy if exists "cart_own" on public.cart_items;
+create policy "cart_own"
+  on public.cart_items for all
+  to authenticated
+  using (user_id = auth.uid())
+  with check (user_id = auth.uid());
+
+-- ------------------------------------------------------------
 -- Order requests (customer sends their cart to WhatsApp; the
 -- request is also stored here and e-mailed to Bikoom via Mailgun)
 -- ------------------------------------------------------------
@@ -301,7 +330,7 @@ begin
   if not exists (select 1 from pg_publication where pubname = 'supabase_realtime') then
     create publication supabase_realtime;
   end if;
-  foreach t in array array['products','categories','banners','order_requests','delivery_requests'] loop
+  foreach t in array array['products','categories','banners','order_requests','delivery_requests','cart_items'] loop
     if not exists (
       select 1 from pg_publication_tables
       where pubname = 'supabase_realtime'
