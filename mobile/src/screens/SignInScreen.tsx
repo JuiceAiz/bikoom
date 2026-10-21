@@ -57,7 +57,7 @@ export default function SignInScreen() {
           </Text>
         </View>
         <Text style={{ fontSize: 22, fontWeight: "900", color: colors.ink950 }}>
-          Sign in to Bikoom Hubs Ltd
+          Sign in to Bikoom Hubs
         </Text>
         <Text
           style={{

@@ -133,7 +133,7 @@ export default function ShopScreen({ route, navigation }: Props) {
         {categories.find((c) => c.slug === categorySlug)?.name ?? "Shop"}
       </Text>
       <Text style={{ fontSize: 13, color: colors.ink500, marginTop: 4 }}>
-        Browse every product from Bikoom Hubs Ltd. Final pricing is confirmed on
+        Browse every product from Bikoom Hubs. Final pricing is confirmed on
         WhatsApp.
       </Text>
 

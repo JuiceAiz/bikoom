@@ -1,4 +1,4 @@
-# Bikoom Hubs Ltd — mobile app (React Native + Expo)
+# Bikoom Hubs — mobile app (React Native + Expo)
 
 The store in your pocket: customers browse, search, cart and send order /
 waybill requests on WhatsApp — and staff manage products, categories,
@@ -29,6 +29,30 @@ EAS preview and production builds use their matching EAS environments. Keep
 environments; local `.env` files are not uploaded to cloud builds. If Supabase
 is not configured, the app now stays open and reports a store-loading error
 instead of crashing at startup.
+
+## Release an app update
+
+The current native app does not have EAS Update configured, so publish a new
+build to deliver changes to an installed app. The app version is tracked in
+`app.json`; increment it for each store release. Build a production release
+with:
+
+```bash
+npx eas-cli@latest build --platform android --profile production
+```
+
+Submit the finished Android build to Google Play using the EAS submission flow,
+or distribute an internal APK for direct installation:
+
+```bash
+npx eas-cli@latest build --platform android --profile preview
+```
+
+For an app already installed from Google Play, publish the production build to
+the same Play listing and users can install the update there. For an internally
+distributed APK, install the new APK over the existing app; it must use the
+same Android package ID and signing key. A new native build is required when
+changing the launcher app name in `app.json`.
 
 ## Google sign-in (how it works)
 

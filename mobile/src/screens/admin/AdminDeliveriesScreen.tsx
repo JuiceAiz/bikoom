@@ -213,7 +213,7 @@ export default function AdminDeliveriesScreen() {
               onPress={() => {
                 void Linking.openURL(
                   waLink(
-                    `Hello ${delivery.name}, this is Bikoom Hubs Ltd replying to your delivery/waybill request. Let's confirm the cost and timeline.`,
+                    `Hello ${delivery.name}, this is Bikoom Hubs replying to your delivery/waybill request. Let's confirm the cost and timeline.`,
                     waNumberFromPhone(delivery.phone),
                   ),
                 );
