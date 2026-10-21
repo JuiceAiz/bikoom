@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { brand } from "../brand";
 import { useAuth } from "../context/AuthContext";
@@ -181,92 +182,95 @@ export function Navbar() {
       </div>
 
       {/* Mobile menu */}
-      {mobileOpen ? (
-        <div className="fixed inset-0 z-50 lg:hidden">
-          <div
-            className="absolute inset-0 bg-ink-950/60 backdrop-blur-sm"
-            onClick={() => setMobileOpen(false)}
-            aria-hidden="true"
-          />
-          <div className="absolute right-0 top-0 flex h-full w-80 max-w-[85vw] flex-col bg-white shadow-2xl">
-            <div className="flex items-center justify-between border-b border-ink-100 px-5 py-4">
-              <Wordmark />
-              <button
-                type="button"
+      {mobileOpen
+        ? createPortal(
+            <div className="fixed inset-0 z-[60] lg:hidden">
+              <div
+                className="absolute inset-0 bg-ink-950/70 backdrop-blur-sm"
                 onClick={() => setMobileOpen(false)}
-                aria-label="Close menu"
-                className="rounded-lg p-2 text-ink-500 hover:bg-ink-100"
-              >
-                <IconClose className="h-5 w-5" />
-              </button>
-            </div>
-            <div className="hidden items-center justify-between border-b border-ink-100 px-5 py-3 max-[359px]:flex">
-              <span className="text-sm font-semibold text-ink-700">Appearance</span>
-              <ThemeToggle />
-            </div>
-            <nav className="flex flex-col gap-1 p-4" aria-label="Mobile">
-              {NAV_LINKS.map((link) => (
-                <NavLink
-                  key={link.to}
-                  to={link.to}
-                  end={link.to === "/"}
-                  onClick={() => setMobileOpen(false)}
-                  className={({ isActive }) =>
-                    cn(
-                      "rounded-xl px-4 py-3 text-base font-semibold transition",
-                      isActive
-                        ? "bg-brand-50 text-brand-700"
-                        : "text-ink-700 hover:bg-ink-50",
-                    )
-                  }
-                >
-                  {link.label}
-                </NavLink>
-              ))}
-              <NavLink
-                to="/cart"
-                onClick={() => setMobileOpen(false)}
-                className="rounded-xl px-4 py-3 text-base font-semibold text-ink-700 hover:bg-ink-50"
-              >
-                Order request ({count})
-              </NavLink>
-            </nav>
-            <div className="mt-auto border-t border-ink-100 p-4">
-              {isAdmin ? (
-                <Link
-                  to="/admin"
-                  onClick={() => setMobileOpen(false)}
-                  className="mb-2 flex items-center gap-2 rounded-xl bg-ink-950 px-4 py-3 text-sm font-semibold text-white"
-                >
-                  <IconShield className="h-4 w-4" /> Admin dashboard
-                </Link>
-              ) : null}
-              {session ? (
-                <div className="flex items-center justify-between gap-2 rounded-xl bg-ink-50 px-4 py-3">
-                  <span className="truncate text-sm font-semibold text-ink-700">
-                    {displayName}
-                  </span>
+                aria-hidden="true"
+              />
+              <div className="absolute inset-y-0 right-0 flex h-full w-80 max-w-[85vw] flex-col border-l border-ink-200 bg-white shadow-2xl">
+                <div className="flex items-center justify-between border-b border-ink-100 px-5 py-4">
+                  <Wordmark />
                   <button
                     type="button"
-                    onClick={handleSignOut}
-                    className="text-sm font-bold text-red-600"
+                    onClick={() => setMobileOpen(false)}
+                    aria-label="Close menu"
+                    className="rounded-lg p-2 text-ink-500 hover:bg-ink-100"
                   >
-                    Sign out
+                    <IconClose className="h-5 w-5" />
                   </button>
                 </div>
-              ) : (
-                <Link
-                  to={signInHref}
-                  onClick={() => setMobileOpen(false)}
-                  className="flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-3 text-sm font-semibold text-white"
-                >
-                  Sign in with Google
-                </Link>
-              )}
-            </div>
-          </div>
-        </div>
-      ) : null}
+                <div className="hidden items-center justify-between border-b border-ink-100 px-5 py-3 max-[359px]:flex">
+                  <span className="text-sm font-semibold text-ink-700">Appearance</span>
+                  <ThemeToggle />
+                </div>
+                <nav className="flex flex-col gap-1 p-4" aria-label="Mobile">
+                  {NAV_LINKS.map((link) => (
+                    <NavLink
+                      key={link.to}
+                      to={link.to}
+                      end={link.to === "/"}
+                      onClick={() => setMobileOpen(false)}
+                      className={({ isActive }) =>
+                        cn(
+                          "rounded-xl px-4 py-3 text-base font-semibold transition",
+                          isActive
+                            ? "bg-brand-50 text-brand-700"
+                            : "text-ink-700 hover:bg-ink-50",
+                        )
+                      }
+                    >
+                      {link.label}
+                    </NavLink>
+                  ))}
+                  <NavLink
+                    to="/cart"
+                    onClick={() => setMobileOpen(false)}
+                    className="rounded-xl px-4 py-3 text-base font-semibold text-ink-700 hover:bg-ink-50"
+                  >
+                    Order request ({count})
+                  </NavLink>
+                </nav>
+                <div className="mt-auto border-t border-ink-100 p-4">
+                  {isAdmin ? (
+                    <Link
+                      to="/admin"
+                      onClick={() => setMobileOpen(false)}
+                      className="mb-2 flex items-center gap-2 rounded-xl bg-ink-950 px-4 py-3 text-sm font-semibold text-white"
+                    >
+                      <IconShield className="h-4 w-4" /> Admin dashboard
+                    </Link>
+                  ) : null}
+                  {session ? (
+                    <div className="flex items-center justify-between gap-2 rounded-xl bg-ink-50 px-4 py-3">
+                      <span className="truncate text-sm font-semibold text-ink-700">
+                        {displayName}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleSignOut}
+                        className="text-sm font-bold text-red-600"
+                      >
+                        Sign out
+                      </button>
+                    </div>
+                  ) : (
+                    <Link
+                      to={signInHref}
+                      onClick={() => setMobileOpen(false)}
+                      className="flex items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-3 text-sm font-semibold text-white"
+                    >
+                      Sign in with Google
+                    </Link>
+                  )}
+                </div>
+              </div>
+            </div>,
+            document.body,
+          )
+        : null}
     </header>
   );
 }
