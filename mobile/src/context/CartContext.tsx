@@ -11,8 +11,9 @@ import {
 } from "react";
 
 import type { Product } from "../../../shared/types";
+import { supabaseConfigured } from "../config";
 import { useRealtimeVersion } from "../lib/realtime";
-import { supabase } from "../lib/supabase";
+import { requireSupabase } from "../lib/supabase";
 import { useAuth } from "./AuthContext";
 
 export interface CartItem {
@@ -172,17 +173,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // works and the next successful mutation/realtime event heals it.
   // ---------------------------------------------------------------
   const upsertRemote = useCallback((rows: CartItem[]) => {
-    if (!userId || rows.length === 0) return;
+    if (!supabaseConfigured || !userId || rows.length === 0) return;
+    const client = requireSupabase();
     for (const item of rows) {
-      fire(supabase.from("cart_items").upsert(itemToRow(userId, item)));
+      fire(client.from("cart_items").upsert(itemToRow(userId, item)));
     }
   }, [userId]);
 
   const deleteRemote = useCallback(
     (productId: string) => {
-      if (!userId) return;
+      if (!supabaseConfigured || !userId) return;
+      const client = requireSupabase();
       fire(
-        supabase
+        client
           .from("cart_items")
           .delete()
           .eq("user_id", userId)
@@ -193,8 +196,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
   );
 
   const clearRemote = useCallback(() => {
-    if (!userId) return;
-    fire(supabase.from("cart_items").delete().eq("user_id", userId));
+    if (!supabaseConfigured || !userId) return;
+    fire(requireSupabase().from("cart_items").delete().eq("user_id", userId));
   }, [userId]);
 
   // On sign-in, merge the device cart into the account cart and push
@@ -202,10 +205,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // cart on the website and in the app. Waits for local hydration so
   // the stored device cart is part of the merge.
   useEffect(() => {
-    if (!ready || !userId) return;
+    if (!supabaseConfigured || !ready || !userId) return;
+    const client = requireSupabase();
     let cancelled = false;
     void (async () => {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from("cart_items")
         .select("*")
         .eq("user_id", userId);
@@ -225,10 +229,11 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // product): reload the account cart whenever cart_items changes.
   const version = useRealtimeVersion(CART_TABLES);
   useEffect(() => {
-    if (version === 0 || !ready || !userId) return;
+    if (!supabaseConfigured || version === 0 || !ready || !userId) return;
+    const client = requireSupabase();
     let cancelled = false;
     void (async () => {
-      const { data, error } = await supabase
+      const { data, error } = await client
         .from("cart_items")
         .select("*")
         .eq("user_id", userId);

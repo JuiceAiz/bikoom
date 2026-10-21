@@ -323,12 +323,12 @@ export default function CartScreen() {
         </Field>
         <Field
           label="Delivery location"
-          hint="Leave blank if you're picking up in Ogoja."
+          hint="Enter the destination if you need delivery."
         >
           <Input
             value={location}
             onChangeText={setLocation}
-            placeholder="e.g. Ogoja town, Calabar, Abuja…"
+            placeholder="Enter town or area"
           />
         </Field>
         <Field label="Notes for Bikoom" hint="Colour preferences, questions, timing…">

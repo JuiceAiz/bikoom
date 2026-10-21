@@ -133,7 +133,7 @@ export default function ShopScreen({ route, navigation }: Props) {
         {categories.find((c) => c.slug === categorySlug)?.name ?? "Shop"}
       </Text>
       <Text style={{ fontSize: 13, color: colors.ink500, marginTop: 4 }}>
-        Browse every product from Bikoom Stores. Final pricing is confirmed on
+        Browse every product from Bikoom Hubs Ltd. Final pricing is confirmed on
         WhatsApp.
       </Text>
 
@@ -182,7 +182,7 @@ export default function ShopScreen({ route, navigation }: Props) {
             value={inStockOnly}
             onValueChange={setInStockOnly}
             trackColor={{ false: colors.ink300, true: colors.brand500 }}
-            thumbColor={colors.white}
+            thumbColor={colors.pureWhite}
           />
           <Text style={{ fontSize: 13, fontWeight: "700", color: colors.ink600 }}>
             In stock only

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { brand } from "../brand";
 import { waLink, buildGeneralMessage } from "../lib/whatsapp";
 import { Logo } from "./Logo";
-import { IconMail, IconMapPin, IconPhone, IconWhatsApp } from "./icons";
+import { IconMail, IconPhone, IconWhatsApp } from "./icons";
 
 const SHOP_LINKS = [
   { to: "/shop?category=laptops", label: "Laptops" },
@@ -50,7 +50,7 @@ export function Footer() {
           </h3>
           <ul className="mt-4 space-y-2.5 text-sm">
             <li>Starlink installation</li>
-            <li>Photocopying &amp; printing (Ogoja only)</li>
+            <li>Photocopying &amp; printing</li>
             <li>Spiral binding &amp; lamination</li>
             <li>Laptop servicing</li>
             <li>
@@ -66,10 +66,6 @@ export function Footer() {
             Contact
           </h3>
           <ul className="mt-4 space-y-3 text-sm">
-            <li className="flex items-start gap-2.5">
-              <IconMapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-400" />
-              <span>{brand.location}</span>
-            </li>
             <li className="flex items-center gap-2.5">
               <IconPhone className="h-4 w-4 shrink-0 text-brand-400" />
               <a href={waLink(buildGeneralMessage())} target="_blank" rel="noreferrer" className="transition hover:text-brand-300">
@@ -94,8 +90,8 @@ export function Footer() {
         <div className="page-container flex flex-col gap-2 py-5 text-xs text-ink-500 sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} {brand.name}. All rights reserved.</p>
           <p>
-            Photocopying available in Ogoja only · Delivery costs discussed
-            directly on WhatsApp
+            Ask about our location and service availability on WhatsApp ·
+            Delivery costs discussed directly
           </p>
         </div>
       </div>

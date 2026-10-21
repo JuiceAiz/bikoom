@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { brand } from "../brand";
 import {
   IconCheck,
-  IconMapPin,
   IconTruck,
   IconWhatsApp,
 } from "../components/icons";
@@ -18,7 +17,12 @@ import {
 } from "../components/ui";
 import { useAuth } from "../context/AuthContext";
 import { api } from "../lib/api";
-import { buildDeliveryMessage, waLink } from "../lib/whatsapp";
+import {
+  buildDeliveryMessage,
+  navigateWhatsAppWindow,
+  reserveWhatsAppWindow,
+  waLink,
+} from "../lib/whatsapp";
 
 interface FormErrors {
   name?: string;
@@ -72,6 +76,7 @@ export default function Delivery() {
       notes: notes.trim() || undefined,
     });
 
+    const whatsappWindow = reserveWhatsAppWindow();
     setSubmitting(true);
     try {
       await api.postDelivery({
@@ -81,10 +86,11 @@ export default function Delivery() {
         productInfo: productInfo.trim(),
         notes: notes.trim() || undefined,
       });
-      window.open(waLink(message), "_blank", "noopener");
+      navigateWhatsAppWindow(whatsappWindow, message);
       setSuccessMessage(message);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
+      whatsappWindow?.close();
       setSubmitError(
         err instanceof Error
           ? err.message
@@ -106,9 +112,9 @@ export default function Delivery() {
             Delivery request received
           </h1>
           <p className="mt-3 text-sm leading-relaxed text-ink-500">
-            Your waybill request is saved. WhatsApp is opening so you can send
-            it to {brand.shortName} — delivery cost and timing are agreed
-            directly with you.
+            Your waybill request is saved. If WhatsApp did not open
+            automatically, use the button below to send it to {brand.shortName}
+            — delivery cost and timing are agreed directly with you.
           </p>
           <div className="mt-6 flex flex-col gap-3">
             <a
@@ -147,8 +153,8 @@ export default function Delivery() {
                 Delivery / waybill request
               </h1>
               <p className="mt-2 max-w-xl text-sm leading-relaxed text-ink-500">
-                Ordering from outside Ogoja — or need an item moved? Tell us
-                where it's going and we'll arrange delivery with you. Cost and
+                Need an item delivered? Tell us where it's going and we'll
+                arrange delivery with you. Cost and
                 timeline are always discussed directly; there are no fixed
                 delivery prices.
               </p>
@@ -252,14 +258,21 @@ export default function Delivery() {
           </Callout>
           <div className="rounded-2xl border border-ink-200/70 bg-white p-5 text-sm text-ink-600 shadow-sm">
             <p className="flex items-center gap-2 font-bold text-ink-900">
-              <IconMapPin className="h-4 w-4 text-brand-600" />
-              {brand.location}
+              <IconWhatsApp className="h-4 w-4 text-brand-600" />
+              Ask about our location
             </p>
             <p className="mt-2 text-xs leading-relaxed">
-              {brand.shortName} delivers from Ogoja to other states via trusted
-              waybill partners. Photocopying and printing, however, are
-              in-person services available <strong>in Ogoja only</strong>.
+              Message us on WhatsApp for our location, visiting details,
+              service availability and delivery options.
             </p>
+            <a
+              href={waLink("Hi, could you share your location and visiting details?")}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-3 inline-flex text-xs font-bold text-brand-700 hover:text-brand-800"
+            >
+              Ask on WhatsApp
+            </a>
           </div>
         </aside>
       </div>

@@ -7,7 +7,6 @@ import { ProductImage } from "../components/ProductImage";
 import {
   IconArrowLeft,
   IconCheck,
-  IconMapPin,
   IconStarFilled,
   IconWhatsApp,
 } from "../components/icons";
@@ -265,10 +264,10 @@ export default function ProductDetail() {
           {/* Info rows */}
           <ul className="mt-8 divide-y divide-ink-100 rounded-2xl border border-ink-200/70 bg-white text-sm">
             <li className="flex items-start gap-3 px-4 py-3.5">
-              <IconMapPin className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
+              <IconWhatsApp className="mt-0.5 h-4 w-4 shrink-0 text-brand-600" />
               <span className="text-ink-600">
-                Picked up in <strong className="text-ink-800">Ogoja</strong>, or
-                delivered anywhere — delivery cost discussed directly on WhatsApp.
+                Ask us on WhatsApp about our location or delivery options.
+                Delivery costs are agreed directly.
               </span>
             </li>
             <li className="flex items-start gap-3 px-4 py-3.5">

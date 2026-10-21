@@ -94,12 +94,10 @@ export default function ProductScreen({ route, navigation }: Props) {
     );
   }
 
-  const images =
-    product.images && product.images.length > 0
-      ? product.images
-      : product.image_url
-        ? [product.image_url]
-        : [];
+  const images = [product.image_url, ...(product.images ?? [])].filter(
+    (image, index, allImages): image is string =>
+      Boolean(image) && allImages.indexOf(image) === index,
+  );
 
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: 40 }}>
@@ -198,8 +196,8 @@ export default function ProductScreen({ route, navigation }: Props) {
         />
 
         <Callout tone="info">
-          Picked up in Ogoja, or delivered anywhere — delivery cost discussed
-          directly on WhatsApp. {product.is_available ? "" : "This item is currently out of stock."}
+          Ask us on WhatsApp about our location or delivery options. Delivery
+          costs are agreed directly. {product.is_available ? "" : "This item is currently out of stock."}
         </Callout>
       </View>
 

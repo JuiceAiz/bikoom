@@ -80,7 +80,7 @@ export function ProductCard({
           {product.name}
         </Link>
 
-        <div className="mt-auto flex items-end justify-between gap-3 pt-4">
+        <div className="mt-auto flex flex-col items-stretch gap-2 pt-4 sm:flex-row sm:items-end sm:justify-between sm:gap-3">
           <PriceTag price={product.price} showPrice={product.show_price} />
           <button
             type="button"
@@ -88,7 +88,7 @@ export function ProductCard({
             disabled={!product.is_available}
             aria-label={`Add ${product.name} to cart`}
             className={cn(
-              "inline-flex items-center gap-1 rounded-lg px-3 py-1.5 text-xs font-bold transition",
+              "inline-flex w-full items-center justify-center gap-1 whitespace-nowrap rounded-lg px-3 py-2 text-xs font-bold transition sm:w-auto sm:py-1.5",
               added
                 ? "bg-brand-600 text-white"
                 : "bg-ink-950 text-white hover:bg-brand-600",

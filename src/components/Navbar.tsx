@@ -5,6 +5,7 @@ import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { initials } from "../lib/format";
 import { Logo, Wordmark } from "./Logo";
+import { ThemeToggle } from "./ThemeToggle";
 import {
   IconCart,
   IconClose,
@@ -69,12 +70,12 @@ export function Navbar() {
         scrolled ? "border-ink-200 shadow-sm" : "border-transparent",
       )}
     >
-      <div className="page-container flex h-16 items-center justify-between gap-4">
+      <div className="page-container flex h-16 items-center justify-between gap-2 sm:gap-4">
         <Link to="/" className="flex shrink-0 items-center gap-2.5" aria-label={brand.name}>
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
+        <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
           {NAV_LINKS.map((link) => (
             <NavLink key={link.to} to={link.to} className={navClass} end={link.to === "/"}>
               {link.label}
@@ -82,10 +83,10 @@ export function Navbar() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 sm:gap-2">
           <Link
             to="/cart"
-            className="relative rounded-xl p-2.5 text-ink-700 transition hover:bg-ink-100"
+            className="relative rounded-xl p-2 text-ink-700 transition hover:bg-ink-100 sm:p-2.5"
             aria-label={`Order request (${count} items)`}
           >
             <IconCart className="h-5 w-5" />
@@ -95,8 +96,10 @@ export function Navbar() {
               </span>
             ) : null}
           </Link>          {/* Desktop account: signed-in menu, or a Sign in link */}
+          <ThemeToggle className="max-[359px]:hidden" />
+
           {session ? (
-            <div className="relative hidden md:block">
+            <div className="relative hidden lg:block">
               <button
                 type="button"
                 onClick={() => setMenuOpen((open) => !open)}
@@ -153,20 +156,22 @@ export function Navbar() {
           ) : (
             <Link
               to={signInHref}
-              className="hidden items-center gap-1.5 rounded-xl border border-ink-200 px-3 py-2 text-sm font-semibold text-ink-700 transition hover:bg-ink-50 md:inline-flex"
+              className="hidden items-center gap-1.5 rounded-xl border border-ink-200 px-3 py-2 text-sm font-semibold text-ink-700 transition hover:bg-ink-50 lg:inline-flex"
             >
               Sign in
             </Link>
           )}
 
-          <Link to="/cart" className={buttonClass("primary", "sm", "hidden sm:inline-flex")}>
-            Order request
-            {count > 0 ? ` (${count})` : ""}
-          </Link>
+          <div className="hidden sm:block">
+            <Link to="/cart" className={buttonClass("primary", "sm")}>
+              Order request
+              {count > 0 ? ` (${count})` : ""}
+            </Link>
+          </div>
 
           <button
             type="button"
-            className="rounded-xl p-2.5 text-ink-700 transition hover:bg-ink-100 md:hidden"
+            className="rounded-xl p-2 text-ink-700 transition hover:bg-ink-100 lg:hidden sm:p-2.5"
             onClick={() => setMobileOpen(true)}
             aria-label="Open menu"
           >
@@ -177,7 +182,7 @@ export function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen ? (
-        <div className="fixed inset-0 z-50 md:hidden">
+        <div className="fixed inset-0 z-50 lg:hidden">
           <div
             className="absolute inset-0 bg-ink-950/60 backdrop-blur-sm"
             onClick={() => setMobileOpen(false)}
@@ -194,6 +199,10 @@ export function Navbar() {
               >
                 <IconClose className="h-5 w-5" />
               </button>
+            </div>
+            <div className="hidden items-center justify-between border-b border-ink-100 px-5 py-3 max-[359px]:flex">
+              <span className="text-sm font-semibold text-ink-700">Appearance</span>
+              <ThemeToggle />
             </div>
             <nav className="flex flex-col gap-1 p-4" aria-label="Mobile">
               {NAV_LINKS.map((link) => (

@@ -32,6 +32,20 @@ export function waLink(text: string, number: string = brand.whatsappNumber): str
   return `https://wa.me/${digits}?text=${encodeURIComponent(text)}`;
 }
 
+/** Reserve a tab during the submit click so browsers allow later navigation. */
+export function reserveWhatsAppWindow(): Window | null {
+  const popup = window.open("about:blank", "_blank");
+  if (popup) popup.opener = null;
+  return popup;
+}
+
+export function navigateWhatsAppWindow(
+  popup: Window | null,
+  message: string,
+): void {
+  if (popup && !popup.closed) popup.location.href = waLink(message);
+}
+
 /**
  * Pre-filled order message: customer, items, quantities, displayed prices,
  * a request for final pricing and delivery/location details.

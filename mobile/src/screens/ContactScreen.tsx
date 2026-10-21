@@ -25,9 +25,9 @@ export default function ContactScreen() {
           Talk to Bikoom
         </Text>
         <Text style={{ fontSize: 14, color: colors.ink600, lineHeight: 21 }}>
-          WhatsApp is the fastest way to reach us — that's where every price,
-          order and delivery is confirmed. You can also visit or call when you're
-          in Ogoja.
+          WhatsApp is the fastest way to reach us for prices, orders and
+          delivery. Message us if you need our location or want to check
+          service availability.
         </Text>
         <View style={{ marginTop: 8, gap: 10 }}>
           <Button
@@ -46,9 +46,18 @@ export default function ContactScreen() {
         </View>
       </View>
 
-      <InfoRow icon="📍" title="Visit us" value={brand.location} />
       <InfoRow icon="✉️" title="E-mail" value={brand.contactEmail} />
       <InfoRow icon="🕗" title="Hours" value={brand.hours} />
+      <Button
+        title="Ask about our location"
+        variant="outline"
+        fullWidth
+        onPress={() =>
+          void Linking.openURL(
+            waLink(buildGeneralMessage("Hi, could you share your location and visiting details?")),
+          )
+        }
+      />
       <InfoRow icon="🚚" title="Delivery" value="Anywhere discussed directly on WhatsApp — no fixed prices." />
     </ScrollView>
   );

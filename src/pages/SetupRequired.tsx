@@ -108,7 +108,7 @@ export default function SetupRequired({
         </div>
 
         <p className="mt-6 text-center text-xs text-ink-500">
-          {brand.name} · {brand.location}
+          {brand.name}
         </p>
       </div>
     </div>

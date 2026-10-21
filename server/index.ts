@@ -23,7 +23,7 @@ app.use(express.json({ limit: "1mb" }));
 app.get("/api/health", (_req: Request, res: Response) => {
   res.json({
     ok: true,
-    store: "Bikoom Stores",
+    store: "Bikoom Hubs Ltd",
     configured: isConfigured(),
     missing: missingEnv(),
     mailgunConfigured: mailgunConfigured(),
@@ -74,7 +74,7 @@ app.get("/api/mobile-auth", (req: Request, res: Response) => {
     res
       .status(400)
       .send(
-        '<!doctype html><meta charset="utf-8"><title>Bikoom Stores</title>' +
+        '<!doctype html><meta charset="utf-8"><title>Bikoom Hubs Ltd</title>' +
           "<p>Invalid app link. Close this tab and try signing in again.</p>",
       );
     return;
@@ -94,8 +94,8 @@ app.get("/api/mobile-auth", (req: Request, res: Response) => {
     `<!doctype html><html lang="en"><head><meta charset="utf-8">` +
       `<meta name="viewport" content="width=device-width, initial-scale=1">` +
       `<meta http-equiv="refresh" content="0;url=${htmlEscape(target)}">` +
-      `<title>Bikoom Stores</title></head><body style="font-family:system-ui,sans-serif;padding:24px;color:#0B1220">` +
-      `<p>Returning you to the Bikoom Stores app&hellip;</p>` +
+      `<title>Bikoom Hubs Ltd</title></head><body style="font-family:system-ui,sans-serif;padding:24px;color:#0B1220">` +
+      `<p>Returning you to the Bikoom Hubs Ltd app&hellip;</p>` +
       `<p><a href="${htmlEscape(target)}">Tap here if nothing happens.</a></p>` +
       `<script>location.replace(${JSON.stringify(target)});</script>` +
       `</body></html>`,
@@ -140,7 +140,7 @@ app.use(
 // must not call listen(); locally we start the HTTP server as usual.
 if (!process.env.VERCEL) {
   app.listen(config.port, () => {
-    console.log(`\n  Bikoom Stores API listening on http://localhost:${config.port}`);
+    console.log(`\n  Bikoom Hubs Ltd API listening on http://localhost:${config.port}`);
     if (!isConfigured()) {
       console.warn(
         `  ⚠ Not configured — missing env vars: ${missingEnv().join(", ")}`,

@@ -123,7 +123,7 @@ export function AdminDeliveries() {
       {visible.length === 0 ? (
         <EmptyState
           title="No delivery requests yet"
-          description="Customers outside Ogoja send waybill requests here."
+          description="Customer delivery and waybill requests appear here."
         />
       ) : (
         <ul className="space-y-4">
@@ -183,7 +183,7 @@ export function AdminDeliveries() {
 
               <a
                 href={waLink(
-                  `Hello ${request.name}, this is Bikoom Stores about your delivery/waybill request to ${request.location}. Let's confirm the details and delivery cost.`,
+                  `Hello ${request.name}, this is Bikoom Hubs Ltd about your delivery/waybill request to ${request.location}. Let's confirm the details and delivery cost.`,
                   waNumberFromPhone(request.phone),
                 )}
                 target="_blank"

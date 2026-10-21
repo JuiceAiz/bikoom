@@ -60,14 +60,12 @@ export function Button({
     whatsapp: colors.whatsappDark,
   }[variant];
   const fg = {
-    primary: colors.white,
+    primary: colors.ink950,
     outline: colors.brand700,
-    danger: colors.white,
+    danger: colors.pureWhite,
     ghost: colors.ink600,
-    whatsapp: colors.white,
+    whatsapp: colors.pureWhite,
   }[variant];
-  const border =
-    variant === "outline" ? `1.5px solid ${colors.brand600}` : "transparent";
   const padV = size === "lg" ? 15 : size === "sm" ? 7 : 11;
   const padH = size === "lg" ? 24 : size === "sm" ? 14 : 18;
 
@@ -223,7 +221,7 @@ export function Toggle({
         onValueChange={onChange}
         disabled={disabled}
         trackColor={{ false: colors.ink300, true: colors.brand500 }}
-        thumbColor={colors.white}
+        thumbColor={colors.pureWhite}
       />
     </View>
   );
@@ -368,7 +366,7 @@ export function Chips({
               style={{
                 fontSize: 12.5,
                 fontWeight: "700",
-                color: active ? colors.white : colors.ink600,
+                color: active ? colors.pureWhite : colors.ink600,
               }}
             >
               {option.label}

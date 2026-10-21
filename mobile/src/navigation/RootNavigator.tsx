@@ -61,7 +61,7 @@ function CartBadge() {
         paddingHorizontal: 4,
       }}
     >
-      <Text style={{ color: colors.white, fontSize: 10, fontWeight: "800" }}>
+      <Text style={{ color: colors.pureWhite, fontSize: 10, fontWeight: "800" }}>
         {count}
       </Text>
     </View>
@@ -69,12 +69,15 @@ function CartBadge() {
 }
 
 function icon(name: keyof typeof Ionicons.glyphMap) {
-  return ({ color, size }: { color: string; size: number }) => (
-    <View>
-      <Ionicons name={name} size={size} color={color} />
-      {name === "cart-outline" ? <CartBadge /> : null}
-    </View>
-  );
+  function TabBarIcon({ color, size }: { color: string; size: number }) {
+    return (
+      <View>
+        <Ionicons name={name} size={size} color={color} />
+        {name === "cart-outline" ? <CartBadge /> : null}
+      </View>
+    );
+  }
+  return TabBarIcon;
 }
 
 function MainTabs() {
@@ -84,7 +87,10 @@ function MainTabs() {
         headerShown: false,
         tabBarActiveTintColor: colors.brand700,
         tabBarInactiveTintColor: colors.ink400,
-        tabBarStyle: { borderTopColor: colors.ink200 },
+        tabBarStyle: {
+          backgroundColor: colors.white,
+          borderTopColor: colors.ink200,
+        },
         tabBarLabelStyle: { fontWeight: "700", fontSize: 11 },
       }}
     >

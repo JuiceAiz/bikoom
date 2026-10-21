@@ -94,7 +94,7 @@ export default function AccountScreen() {
           <View
             style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center" }}
           >
-            <Text style={{ color: colors.white, fontSize: 16, fontWeight: "900" }}>
+            <Text style={{ color: colors.pureWhite, fontSize: 16, fontWeight: "900" }}>
               Admin dashboard
             </Text>
             <Text style={{ color: colors.brand200, fontWeight: "800" }}>Open →</Text>
@@ -149,7 +149,7 @@ export default function AccountScreen() {
           {brand.description}
         </Text>
         <Text style={{ fontSize: 12, color: colors.ink400, marginTop: 4 }}>
-          {brand.hours} · {brand.location}
+          {brand.hours}
         </Text>
       </View>
     </ScrollView>

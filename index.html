@@ -5,9 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Bikoom Stores — new and A1 London-used office equipment, furniture, Starlink installation and office services in Ogoja, Nigeria. Request orders and delivery on WhatsApp."
+      content="Bikoom Hubs Ltd — new and A1 London-used office equipment, furniture, Starlink installation and office services. Request orders and delivery on WhatsApp."
     />
-    <meta name="theme-color" content="#0B1220" />
+    <meta name="theme-color" content="#09090B" />
+    <script>
+      try {
+        const theme = localStorage.getItem("bikoom-theme");
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.dataset.theme = theme;
+          document
+            .querySelector('meta[name="theme-color"]')
+            ?.setAttribute("content", theme === "light" ? "#f8faf9" : "#09090b");
+        }
+      } catch {
+        // Keep the default dark theme when browser storage is unavailable.
+      }
+    </script>
     <link rel="icon" type="image/png" href="/bikoom-bhl-logo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -15,7 +28,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <title>Bikoom Stores — Office Equipment & More in Ogoja</title>
+    <title>Bikoom Hubs Ltd — Office Equipment &amp; More</title>
   </head>
   <body>
     <div id="root"></div>

@@ -80,7 +80,7 @@ from (values
 
   -- ===== Furniture =====
   ('furniture', 'Executive Office Desk with Drawers', 'executive-office-desk',
-   'Spacious executive desk with three drawers and cable cut-out. Warm walnut finish, sturdy metal frame. Delivery within Ogoja arranged on WhatsApp.',
+   'Spacious executive desk with three drawers and cable cut-out. Warm walnut finish, sturdy metal frame. Delivery arranged on WhatsApp.',
    320000.00, true, true, false),
 
   ('furniture', 'Ergonomic Mesh Office Chair', 'ergonomic-mesh-office-chair',
@@ -92,7 +92,7 @@ from (values
    null, false, true, false),
 
   ('furniture', '3-Seater Wooden Dining Table Set', '3-seater-dining-table-set',
-   'Solid wood dining table with three chairs, polished finish. Seats 4–6 comfortably. Made to order in Ogoja.',
+   'Solid wood dining table with three chairs, polished finish. Seats 4–6 comfortably. Made to order.',
    480000.00, true, true, false),
 
   ('furniture', 'TV Console / Centre Table', 'tv-console-centre-table',
@@ -104,8 +104,8 @@ from (values
    'Original Starlink standard kit with dish, mount, cable and router. One-time hardware purchase — monthly subscription is separate. We deliver and set it up for you.',
    499000.00, true, true, true),
 
-  ('starlink', 'Starlink Installation Service — Ogoja & Cross River', 'starlink-installation-service',
-   'Professional mounting, alignment and activation by the Bikoom team. Includes site assessment, pole/roof mounting and speed testing. Available in Ogoja and across Cross River.',
+  ('starlink', 'Starlink Installation Service', 'starlink-installation-service',
+   'Professional mounting, alignment and activation by the Bikoom team. Includes site assessment, pole/roof mounting and speed testing. Message us on WhatsApp to confirm service availability.',
    45000.00, true, true, true),
 
   ('starlink', 'Starlink Roof Mounting Pole & Brackets', 'starlink-mounting-pole',
@@ -114,15 +114,15 @@ from (values
 
   -- ===== Services =====
   ('services', 'Photocopying (A4, per page)', 'photocopying-a4-per-page',
-   'Clear, jam-free photocopying — bulk and double-sided discounts available. Ogoja only: walk into our shop or send documents on WhatsApp to place your order. Price per page.',
+   'Clear, jam-free photocopying — bulk and double-sided discounts available. Message us on WhatsApp to confirm availability and place your order. Price per page.',
    50.00, true, true, false),
 
   ('services', 'Spiral Binding & Lamination', 'spiral-binding-lamination',
-   'Spiral binding for projects and reports, plus lamination for cards and certificates. Ogoja only. Price starts from — chat us for a quote on your job.',
+   'Spiral binding for projects and reports, plus lamination for cards and certificates. Price starts from — chat us for a quote on your job.',
    2500.00, true, true, false),
 
   ('services', 'Laptop Servicing & Virus Removal', 'laptop-servicing-virus-removal',
-   'Full diagnostic, operating-system cleanup, virus/malware removal and thermal paste replacement. Free diagnosis when you leave your laptop with us in Ogoja.',
+   'Full diagnostic, operating-system cleanup, virus/malware removal and thermal paste replacement. Message us to ask about service arrangements.',
    25000.00, true, true, false),
 
   ('services', 'Home/Office Wi-Fi Setup', 'wifi-setup-service',
@@ -135,11 +135,11 @@ from (values
    45000.00, true, true, false),
 
   ('other', '1000VA UPS (Uninterruptible Power Supply)', '1000va-ups',
-   'Protects your laptop, router and TV from outages and surges. Battery tested and ready. Great for Ogoja power conditions.',
+   'Protects your laptop, router and TV from outages and surges. Battery tested and ready.',
    55000.00, true, true, false),
 
   ('other', 'CCTV DVR 4-Channel + 2 Cameras Kit', 'cctv-4channel-2camera-kit',
-   '4-channel DVR with 2 HD cameras, mobile viewing setup included. Installation available within Ogoja.',
+   '4-channel DVR with 2 HD cameras, mobile viewing setup included. Installation available on request.',
    null, false, true, false)
 ) as p(category_slug, name, slug, description, price, show_price, is_available, is_featured)
 join public.categories c on c.slug = p.category_slug
@@ -151,15 +151,15 @@ on conflict (slug) do nothing;
 insert into public.banners (title, subtitle, image_url, link_url, is_active, sort_order)
 select b.title, b.subtitle, null, b.link_url, true, b.sort_order
 from (values
-  ('Office Equipment & More in Ogoja',
+  ('Office Equipment & More',
    'New and A1 London-used office equipment, honest prices and after-sale support. Every order is confirmed with you on WhatsApp.',
    '/shop', 1),
 
   ('Starlink Installation, Done Right',
-   'Kits, mounting and activation by the Bikoom team — anywhere in Ogoja and across Cross River.',
+   'Kits, mounting and activation by the Bikoom team. Message us on WhatsApp to confirm service availability.',
    '/category/starlink', 2),
 
-  ('Photocopying & Printing — Ogoja Only',
+  ('Photocopying & Printing',
    'Projects, reports, lamination and spiral binding. Send your documents on WhatsApp and pick up same day.',
    '/category/services', 3)
 ) as b(title, subtitle, link_url, sort_order)

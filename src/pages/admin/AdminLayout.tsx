@@ -4,6 +4,7 @@ import { brand } from "../../brand";
 import { useAuth } from "../../context/AuthContext";
 import { initials } from "../../lib/format";
 import { LogoMark } from "../../components/Logo";
+import { ThemeToggle } from "../../components/ThemeToggle";
 import {
   IconExternal,
   IconFileText,
@@ -57,7 +58,7 @@ function SidebarContent({ onNavigate }: { onNavigate?: () => void }) {
   return (
     <div className="flex h-full flex-col">
       <div className="flex items-center gap-2.5 px-5 py-5">
-        <LogoMark className="h-9 w-9" />
+        <LogoMark className="h-10 w-10" />
         <div>
           <p className="font-display text-sm font-extrabold text-white">
             {brand.shortName}
@@ -174,12 +175,15 @@ export function AdminLayout() {
             </button>
             <h1 className="font-display text-lg font-extrabold text-ink-950">{title}</h1>
           </div>
-          <Link
-            to="/"
-            className="inline-flex items-center gap-1.5 rounded-lg border border-ink-200 bg-white px-3 py-1.5 text-xs font-bold text-ink-700 transition hover:bg-ink-50"
-          >
-            <IconExternal className="h-3.5 w-3.5" /> View store
-          </Link>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Link
+              to="/"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-ink-200 bg-white px-3 py-1.5 text-xs font-bold text-ink-700 transition hover:bg-ink-50"
+            >
+              <IconExternal className="h-3.5 w-3.5" /> View store
+            </Link>
+          </div>
         </header>
 
         <main className="p-4 sm:p-6 lg:p-8">

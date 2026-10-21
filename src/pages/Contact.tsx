@@ -3,11 +3,9 @@ import { brand, usesPlaceholderWhatsApp } from "../brand";
 import {
   IconClock,
   IconMail,
-  IconMapPin,
-  IconTruck,
   IconWhatsApp,
 } from "../components/icons";
-import { Badge, Callout, buttonClass } from "../components/ui";
+import { Badge, buttonClass } from "../components/ui";
 import { buildGeneralMessage, waLink } from "../lib/whatsapp";
 
 const FAQ = [
@@ -16,12 +14,16 @@ const FAQ = [
     a: "There is no online checkout. You send your order request, then agree on the final price and payment directly with Bikoom on WhatsApp.",
   },
   {
-    q: "Do you deliver outside Ogoja?",
-    a: "Yes — request delivery or waybill and we'll arrange it with you. The delivery cost is discussed directly, never fixed on the website.",
+    q: "Where are you located?",
+    a: "Message us on WhatsApp and we'll share our location and answer any questions.",
   },
   {
-    q: "Can I photocopy from anywhere?",
-    a: "Photocopying, printing, binding and lamination are in-person services available in Ogoja only. Send your documents on WhatsApp and pick up the same day.",
+    q: "Are your services available to me?",
+    a: "Message us on WhatsApp to ask about service availability and arrange what you need.",
+  },
+  {
+    q: "How does delivery work?",
+    a: "Request delivery or waybill and we'll arrange it with you. The delivery cost is discussed directly, never fixed on the website.",
   },
 ];
 
@@ -40,8 +42,8 @@ export default function Contact() {
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-ink-500">
           WhatsApp is the fastest way to reach us — that's where every price,
-          order and delivery is confirmed. You can also visit or call when
-          you're in Ogoja.
+          order and delivery is confirmed. Message us on WhatsApp if you need
+          our location or want to check service availability.
         </p>
       </div>
 
@@ -72,17 +74,21 @@ export default function Contact() {
 
         <div className="flex flex-col rounded-2xl border border-ink-200/70 bg-white p-6 shadow-sm">
           <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-50 text-brand-700">
-            <IconMapPin className="h-6 w-6" />
+            <IconWhatsApp className="h-6 w-6" />
           </span>
-          <h2 className="mt-4 font-bold text-ink-950">Visit the shop</h2>
+          <h2 className="mt-4 font-bold text-ink-950">Location &amp; visits</h2>
           <p className="mt-1.5 flex-1 text-sm text-ink-500">
-            {brand.location}
-            <br />
-            {brand.hours}
+            Ask us on WhatsApp for our location, visiting details and service
+            availability.
           </p>
-          <Link to="/delivery" className={buttonClass("outline", "md", "mt-4")}>
-            <IconTruck className="h-4 w-4" /> Request delivery
-          </Link>
+          <a
+            href={waLink(buildGeneralMessage("Hi, could you share your location and visiting details?"))}
+            target="_blank"
+            rel="noreferrer"
+            className={buttonClass("whatsapp", "md", "mt-4")}
+          >
+            Ask on WhatsApp
+          </a>
         </div>
 
         <div className="flex flex-col rounded-2xl border border-ink-200/70 bg-white p-6 shadow-sm">
@@ -100,16 +106,6 @@ export default function Contact() {
             <IconClock className="h-4 w-4" /> {brand.contactEmail}
           </a>
         </div>
-      </div>
-
-      {/* Ogoja note */}
-      <div className="mt-8">
-        <Callout tone="info">
-          <span className="font-semibold">Location note:</span> Bikoom operates
-          from {brand.location}. Photocopying and printing are{" "}
-          <strong>Ogoja-only</strong> services; laptops, phones, furniture and
-          Starlink kits can be delivered to other locations on request.
-        </Callout>
       </div>
 
       {/* FAQ */}

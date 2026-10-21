@@ -52,12 +52,12 @@ export default function SignInScreen() {
             justifyContent: "center",
           }}
         >
-          <Text style={{ color: colors.white, fontSize: 30, fontWeight: "900" }}>
+          <Text style={{ color: colors.pureWhite, fontSize: 30, fontWeight: "900" }}>
             B
           </Text>
         </View>
         <Text style={{ fontSize: 22, fontWeight: "900", color: colors.ink950 }}>
-          Sign in to Bikoom Stores
+          Sign in to Bikoom Hubs Ltd
         </Text>
         <Text
           style={{

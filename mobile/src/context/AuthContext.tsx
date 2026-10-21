@@ -13,7 +13,7 @@ import {
 
 import { SITE_URL, supabaseConfigured } from "../config";
 import { api } from "../lib/api";
-import { supabase } from "../lib/supabase";
+import { requireSupabase } from "../lib/supabase";
 
 // Required for iOS: completes the auth session when the app is brought back to foreground.
 WebBrowser.maybeCompleteAuthSession();
@@ -68,7 +68,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const loadProfile = useCallback(async (user: User) => {
     if (!supabaseConfigured) return;
     try {
-      const { data } = await supabase
+      const { data } = await requireSupabase()
         .from("profiles")
         .select("*")
         .eq("id", user.id)
@@ -82,8 +82,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!supabaseConfigured) return;
     let cancelled = false;
+    const client = requireSupabase();
 
-    supabase.auth
+    client.auth
       .getSession()
       .then(({ data }) => {
         if (cancelled) return;
@@ -96,7 +97,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, newSession) => {
+    } = client.auth.onAuthStateChange((_event, newSession) => {
       setSession(newSession);
       if (newSession?.user) {
         void loadProfile(newSession.user);
@@ -130,6 +131,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithGoogle = useCallback(async (): Promise<string | null> => {
     if (!supabaseConfigured) return "Supabase is not configured yet.";
+    const client = requireSupabase();
 
     // Warm up the browser (improves speed on Android).
     await WebBrowser.warmUpAsync();
@@ -145,7 +147,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // back to the app instead.
     const redirectTo = `${SITE_URL}/api/mobile-auth?next=${encodeURIComponent(deepLink)}`;
 
-    const { data, error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await client.auth.signInWithOAuth({
       provider: "google",
       options: { redirectTo, skipBrowserRedirect: true },
     });
@@ -180,11 +182,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     if (code) {
       const { error: exchangeError } =
-        await supabase.auth.exchangeCodeForSession(code);
+        await client.auth.exchangeCodeForSession(code);
       return exchangeError ? exchangeError.message : null;
     }
     if (access && refresh) {
-      const { error: sessionError } = await supabase.auth.setSession({
+      const { error: sessionError } = await client.auth.setSession({
         access_token: access,
         refresh_token: refresh,
       });
@@ -195,7 +197,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signOut = useCallback(async () => {
     if (!supabaseConfigured) return;
-    await supabase.auth.signOut();
+    await requireSupabase().auth.signOut();
     setProfile(null);
     setSession(null);
   }, []);

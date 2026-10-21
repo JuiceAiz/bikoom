@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
+import { supabaseConfigured } from "../config";
 import type { Banner, Category, Product } from "../../../shared/types";
 import { requireSupabase } from "./supabase";
 
@@ -20,6 +21,7 @@ export function useRealtimeVersion(
   const tablesKey = tables.join(",");
 
   useEffect(() => {
+    if (!supabaseConfigured) return;
     const supabase = requireSupabase();
     const channel = supabase.channel(`realtime:${tablesKey}`);
 

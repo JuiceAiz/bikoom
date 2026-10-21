@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Bikoom Stores",
+    "name": "Bikoom Hubs Ltd",
     "slug": "bikoom-stores",
     "scheme": "bikoom",
     "version": "1.0.0",
@@ -11,10 +11,10 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.juiceaiz.bikoom",
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#11110F",
         "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
       "predictiveBackGestureEnabled": false
@@ -24,7 +24,13 @@
     },
     "plugins": [
       "expo-secure-store",
-      "expo-web-browser"
-    ]
+      "expo-web-browser",
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "f0662e82-5065-4abb-86d1-76452db62ff1"
+      }
+    }
   }
 }

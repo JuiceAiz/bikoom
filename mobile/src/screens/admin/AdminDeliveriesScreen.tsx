@@ -213,7 +213,7 @@ export default function AdminDeliveriesScreen() {
               onPress={() => {
                 void Linking.openURL(
                   waLink(
-                    `Hello ${delivery.name}, this is Bikoom Stores replying to your delivery/waybill request. Let's confirm the cost and timeline.`,
+                    `Hello ${delivery.name}, this is Bikoom Hubs Ltd replying to your delivery/waybill request. Let's confirm the cost and timeline.`,
                     waNumberFromPhone(delivery.phone),
                   ),
                 );
@@ -227,7 +227,7 @@ export default function AdminDeliveriesScreen() {
                 opacity: updatingId === delivery.id ? 0.6 : 1,
               }}
             >
-              <Text style={{ color: colors.white, fontWeight: "800", fontSize: 13 }}>
+              <Text style={{ color: colors.pureWhite, fontWeight: "800", fontSize: 13 }}>
                 Reply on WhatsApp
               </Text>
             </Pressable>

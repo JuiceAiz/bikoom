@@ -13,7 +13,7 @@ export function LogoMark({ className = "h-10 w-10" }: { className?: string }) {
   );
 }
 
-/** Wordmark: "Bikoom" + " Stores". */
+/** Wordmark: "Bikoom" + the rest of the registered name. */
 export function Wordmark({
   className,
   tone = "dark",
@@ -39,9 +39,12 @@ export function Wordmark({
 
 export function Logo({ tone = "dark" }: { tone?: "dark" | "light" }) {
   return (
-    <span className="flex items-center gap-2.5">
+    <span className="flex items-center gap-2">
       <LogoMark className="h-9 w-9 sm:h-10 sm:w-10" />
-      <Wordmark tone={tone} className="max-[359px]:text-sm" />
+      <Wordmark
+        tone={tone}
+        className="text-base sm:text-lg max-[359px]:text-sm"
+      />
     </span>
   );
 }

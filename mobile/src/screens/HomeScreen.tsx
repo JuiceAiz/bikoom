@@ -135,22 +135,9 @@ export default function HomeScreen() {
           />
         ) : null}
         <View style={{ gap: 14 }}>
-          <View
-            style={{
-              alignSelf: "flex-start",
-              backgroundColor: "rgba(255,255,255,0.1)",
-              borderRadius: 999,
-              paddingHorizontal: 12,
-              paddingVertical: 6,
-            }}
-          >
-            <Text style={{ color: colors.brand200, fontSize: 12, fontWeight: "700" }}>
-              📍 {brand.location}
-            </Text>
-          </View>
           <Text
             style={{
-              color: colors.white,
+              color: colors.pureWhite,
               fontSize: 30,
               fontWeight: "900",
               lineHeight: 36,
@@ -266,12 +253,12 @@ export default function HomeScreen() {
           }}
         >
           <Text style={{ fontSize: 17, fontWeight: "900", color: colors.brand950 }}>
-            Services in Ogoja
+            Our services
           </Text>
           <Text style={{ fontSize: 13.5, color: colors.brand700, lineHeight: 20 }}>
             Photocopying, printing, spiral binding &amp; lamination, laptop
-            servicing, Wi-Fi setup and Starlink installation — discussed and
-            confirmed on WhatsApp.
+            servicing, Wi-Fi setup and Starlink installation. Ask us on
+            WhatsApp about service availability.
           </Text>
           <View style={{ flexDirection: "row", gap: 10 }}>
             <Button

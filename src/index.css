@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================================
-   Bikoom Store design tokens.
+   Bikoom Hubs Ltd design tokens.
    Rebrand the store here: change the color scales below and in
    src/brand.ts (name, WhatsApp number, etc.).
    ============================================================ */
@@ -12,46 +12,80 @@
   --font-display:
     "Plus Jakarta Sans", "Inter", ui-sans-serif, system-ui, sans-serif;
 
-  /* Brand — jade green */
-  --color-brand-50: #ecfdf3;
-  --color-brand-100: #d3f8e2;
-  --color-brand-200: #acefd0;
-  --color-brand-300: #78e0b7;
-  --color-brand-400: #43c99a;
-  --color-brand-500: #1faf7f;
-  --color-brand-600: #128c64;
-  --color-brand-700: #0e7052;
-  --color-brand-800: #0e5943;
-  --color-brand-900: #0c4938;
-  --color-brand-950: #052a20;
+  /* Brand — black and green */
+  --color-brand-50: #f0fdf4;
+  --color-brand-100: #dcfce7;
+  --color-brand-200: #bbf7d0;
+  --color-brand-300: #86efac;
+  --color-brand-400: #4ade80;
+  --color-brand-500: #22c55e;
+  --color-brand-600: #16a34a;
+  --color-brand-700: #15803d;
+  --color-brand-800: #166534;
+  --color-brand-900: #14532d;
+  --color-brand-950: #052e16;
 
-  /* Accent — warm amber */
-  --color-accent-100: #ffeeC7;
-  --color-accent-300: #fcd34d;
-  --color-accent-400: #fbbf24;
-  --color-accent-500: #f59e0b;
-  --color-accent-600: #d97706;
-  --color-accent-700: #b45309;
+  /* Accent — green */
+  --color-accent-100: #dcfce7;
+  --color-accent-300: #86efac;
+  --color-accent-400: #4ade80;
+  --color-accent-500: #22c55e;
+  --color-accent-600: #16a34a;
+  --color-accent-700: #15803d;
 
-  /* Ink — near-black navy for text and dark surfaces */
-  --color-ink-50: #f8fafc;
-  --color-ink-100: #f1f5f9;
-  --color-ink-200: #e2e8f0;
-  --color-ink-300: #cbd5e1;
-  --color-ink-400: #94a3b8;
-  --color-ink-500: #64748b;
-  --color-ink-600: #475569;
-  --color-ink-700: #334155;
-  --color-ink-800: #1e293b;
-  --color-ink-900: #0f172a;
-  --color-ink-950: #0b1220;
+  /* Ink — neutral black and charcoal */
+  --color-ink-50: #fafafa;
+  --color-ink-100: #f4f4f5;
+  --color-ink-200: #e4e4e7;
+  --color-ink-300: #d4d4d8;
+  --color-ink-400: #a1a1aa;
+  --color-ink-500: #71717a;
+  --color-ink-600: #52525b;
+  --color-ink-700: #3f3f46;
+  --color-ink-800: #27272a;
+  --color-ink-900: #18181b;
+  --color-ink-950: #09090b;
 
-  /* Warm page background */
-  --color-cream: #faf8f4;
+  /* Dark storefront canvas */
+  --color-cream: #09090b;
+
+  --theme-surface: #18181b;
+  --theme-surface-translucent: rgb(24 24 27 / 92%);
+  --theme-surface-muted: #18181b;
+  --theme-surface-brand: #13271b;
+  --theme-surface-accent: #173521;
+  --theme-text-strong: #f5f2ea;
+  --theme-text-medium: #dedbd2;
+  --theme-text-subtle: #c3bfb5;
+  --theme-text-muted: #aaa69c;
+  --theme-brand-text: #4ade80;
+  --theme-border: #37373f;
 
   /* WhatsApp */
   --color-whatsapp: #25d366;
   --color-whatsapp-dark: #128c7e;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-cream: #f8faf9;
+  --theme-surface: #ffffff;
+  --theme-surface-translucent: rgb(255 255 255 / 92%);
+  --theme-surface-translucent-soft: rgb(255 255 255 / 60%);
+  --theme-surface-muted: #f4f4f5;
+  --theme-surface-brand: #f0fdf4;
+  --theme-surface-accent: #dcfce7;
+  --theme-text-strong: #18181b;
+  --theme-text-medium: #27272a;
+  --theme-text-subtle: #52525b;
+  --theme-text-muted: #71717a;
+  --theme-brand-text: #15803d;
+  --theme-border: #e4e4e7;
+}
+
+:root {
+  color-scheme: dark;
+  --theme-surface-translucent-soft: rgb(24 24 27 / 60%);
 }
 
 @layer base {
@@ -79,4 +113,64 @@
 /* Thin scrollbars for admin tables on small screens */
 @utility scroll-x {
   @apply -mx-4 overflow-x-auto px-4 pb-1;
+}
+
+.bg-white {
+  background-color: var(--theme-surface);
+}
+
+.bg-white\/90 {
+  background-color: var(--theme-surface-translucent);
+}
+
+.bg-white\/60 {
+  background-color: var(--theme-surface-translucent-soft);
+}
+
+.bg-ink-50,
+.bg-ink-100 {
+  background-color: var(--theme-surface-muted);
+}
+
+.bg-brand-50,
+.bg-brand-100 {
+  background-color: var(--theme-surface-brand);
+}
+
+.bg-accent-100 {
+  background-color: var(--theme-surface-accent);
+}
+
+.text-ink-950,
+.text-ink-900 {
+  color: var(--theme-text-strong);
+}
+
+.text-ink-800,
+.text-ink-700 {
+  color: var(--theme-text-medium);
+}
+
+.text-ink-600 {
+  color: var(--theme-text-subtle);
+}
+
+.text-ink-500 {
+  color: var(--theme-text-muted);
+}
+
+.text-brand-500,
+.text-brand-600,
+.text-brand-700,
+.text-brand-800,
+.text-accent-600,
+.text-accent-700 {
+  color: var(--theme-brand-text);
+}
+
+.border-ink-200,
+.border-ink-200\/70,
+.border-ink-300,
+.ring-ink-200 {
+  border-color: var(--theme-border);
 }

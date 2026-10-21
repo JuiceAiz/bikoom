@@ -169,7 +169,7 @@ export default function AdminProductsScreen() {
             paddingVertical: 10,
           }}
         >
-          <Text style={{ color: colors.white, fontWeight: "800", fontSize: 13 }}>
+          <Text style={{ color: colors.pureWhite, fontWeight: "800", fontSize: 13 }}>
             ＋ Add
           </Text>
         </Pressable>
@@ -240,7 +240,7 @@ export default function AdminProductsScreen() {
                   value={product.is_available}
                   onValueChange={() => void toggleAvailable(product)}
                   trackColor={{ false: colors.ink300, true: colors.brand500 }}
-                  thumbColor={colors.white}
+                  thumbColor={colors.pureWhite}
                 />
                 <Pressable onPress={() => confirmDelete(product)} hitSlop={6}>
                   <Text style={{ color: colors.red, fontWeight: "800", fontSize: 12 }}>

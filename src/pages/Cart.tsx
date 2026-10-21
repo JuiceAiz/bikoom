@@ -23,7 +23,12 @@ import { useAuth } from "../context/AuthContext";
 import { useCart } from "../context/CartContext";
 import { api } from "../lib/api";
 import { formatNaira } from "../lib/format";
-import { buildOrderMessage, waLink } from "../lib/whatsapp";
+import {
+  buildOrderMessage,
+  navigateWhatsAppWindow,
+  reserveWhatsAppWindow,
+  waLink,
+} from "../lib/whatsapp";
 
 interface FormErrors {
   name?: string;
@@ -58,7 +63,7 @@ export default function Cart() {
     if (phone.replace(/[^\d+]/g, "").length < 7)
       next.phone = "Enter a valid phone / WhatsApp number.";
     if (location.trim() && location.trim().length < 2)
-      next.location = "Enter your location, or leave it blank for pickup.";
+      next.location = "Enter a valid delivery destination.";
     return next;
   };
 
@@ -84,6 +89,7 @@ export default function Cart() {
       })),
     });
 
+    const whatsappWindow = reserveWhatsAppWindow();
     setSubmitting(true);
     try {
       await api.postOrder({
@@ -99,12 +105,12 @@ export default function Cart() {
           showPrice: item.showPrice,
         })),
       });
-      // Record saved (+ Mailgun e-mail queued) — now open WhatsApp.
-      window.open(waLink(message), "_blank", "noopener");
+      navigateWhatsAppWindow(whatsappWindow, message);
       setSuccessMessage(message);
       clear();
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
+      whatsappWindow?.close();
       setSubmitError(
         err instanceof Error
           ? err.message
@@ -127,9 +133,9 @@ export default function Cart() {
             Order request sent
           </h1>
           <p className="mt-3 text-sm leading-relaxed text-ink-500">
-            Your request has been saved and WhatsApp is opening with your
-            items. Bikoom will confirm prices, availability and delivery with
-            you there — no payment happens online.
+            Your request has been saved. If WhatsApp did not open automatically,
+            use the button below to send your items. Bikoom will confirm prices,
+            availability and delivery with you there — no payment happens online.
           </p>
           <div className="mt-6 flex flex-col gap-3">
             <a
@@ -283,13 +289,13 @@ export default function Cart() {
               <Field
                 label="Delivery location"
                 error={errors.location}
-                hint="Leave blank if you're picking up in Ogoja."
+                hint="Enter the destination if you need delivery."
                 className="sm:col-span-2"
               >
                 <Input
                   value={location}
                   onChange={(e) => setLocation(e.target.value)}
-                  placeholder="e.g. Ogoja town, Calabar, Abuja…"
+                  placeholder="Enter town or area"
                 />
               </Field>
               <Field

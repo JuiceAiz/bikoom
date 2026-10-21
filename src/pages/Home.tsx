@@ -4,7 +4,7 @@ import type { Banner, Category, Product } from "../../shared/types";
 import { brand } from "../brand";
 import { ProductCard } from "../components/ProductCard";
 import { ProductImage } from "../components/ProductImage";
-import { IconArrowRight, IconCheck, IconMapPin, IconPackage, IconTruck, IconWhatsApp } from "../components/icons";
+import { IconArrowRight, IconCheck, IconPackage, IconTruck, IconWhatsApp } from "../components/icons";
 import { ErrorState, buttonClass, Spinner, cn } from "../components/ui";
 import { buildGeneralMessage, waLink } from "../lib/whatsapp";
 import { useRealtimeRefresh } from "../lib/realtime";
@@ -22,10 +22,9 @@ const CATEGORY_ICONS: Record<string, string> = {
 };
 
 const TRUST_ITEMS = [
-  { icon: <IconMapPin className="h-4 w-4" />, label: "Based in Ogoja, Cross River" },
   { icon: <IconWhatsApp className="h-4 w-4" />, label: "Orders confirmed on WhatsApp" },
-  { icon: <IconTruck className="h-4 w-4" />, label: "Delivery requested for anywhere" },
-  { icon: <IconCheck className="h-4 w-4" />, label: "Photocopying in Ogoja only" },
+  { icon: <IconTruck className="h-4 w-4" />, label: "Delivery available on request" },
+  { icon: <IconCheck className="h-4 w-4" />, label: "Ask about service availability" },
 ];
 
 export default function Home() {
@@ -96,10 +95,6 @@ export default function Home() {
 
         <div className="page-container relative grid items-center gap-12 py-16 lg:grid-cols-2 lg:py-24">
           <div>
-            <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-bold ring-1 ring-white/15">
-              <IconMapPin className="h-3.5 w-3.5 text-brand-300" />
-              {brand.location}
-            </span>
             <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
               {hero?.title ?? brand.tagline}
             </h1>
@@ -196,7 +191,7 @@ export default function Home() {
                 to={`/category/${category.slug}`}
                 className="group flex flex-col items-center gap-2 rounded-2xl border border-ink-200/70 bg-white p-5 text-center shadow-sm transition hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-md"
               >
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-2xl">
+                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-ink-100 text-2xl">
                   {CATEGORY_ICONS[category.slug] ?? "🛍️"}
                 </span>
                 <span className="font-display text-sm font-bold text-ink-900 group-hover:text-brand-700">
@@ -263,7 +258,7 @@ export default function Home() {
           <ServiceCard
             icon="📡"
             title="Starlink installation"
-            body="Kits, roof mounting and activation anywhere in Ogoja and across Cross River State. We set it up and test the speeds with you."
+            body="Kits, roof mounting and activation arranged with you directly. We set it up and test the speeds with you."
             action={
               <Link to="/category/starlink" className={buttonClass("outline", "sm")}>
                 See Starlink services
@@ -273,8 +268,7 @@ export default function Home() {
           <ServiceCard
             icon="🖨️"
             title="Photocopying & printing"
-            badge="Ogoja only"
-            body="Photocopies, colour printing, spiral binding and lamination for projects, reports and certificates. Send documents on WhatsApp and pick up the same day."
+            body="Photocopies, colour printing, spiral binding and lamination for projects, reports and certificates. Message us on WhatsApp to confirm availability and arrange your request."
             action={
               <Link to="/category/services" className={buttonClass("outline", "sm")}>
                 See services
@@ -284,7 +278,7 @@ export default function Home() {
           <ServiceCard
             icon="🚚"
             title="Delivery & waybill"
-            body="Buying from outside Ogoja? Request delivery and we'll arrange it with you. Costs are always discussed directly — no surprise fees."
+            body="Request delivery and we'll arrange it with you. Costs are always discussed directly — no surprise fees."
             action={
               <Link to="/delivery" className={buttonClass("outline", "sm")}>
                 Request delivery

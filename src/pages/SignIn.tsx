@@ -3,7 +3,7 @@ import { Link, Navigate, useSearchParams } from "react-router-dom";
 import { brand } from "../brand";
 import { Logo } from "../components/Logo";
 import { Button, Spinner } from "../components/ui";
-import { IconAlert, IconCheck, IconMapPin, IconWhatsApp } from "../components/icons";
+import { IconAlert, IconCheck, IconWhatsApp } from "../components/icons";
 import { useAuth } from "../context/AuthContext";
 
 function GoogleG({ className = "h-5 w-5" }: { className?: string }) {
@@ -19,7 +19,7 @@ function GoogleG({ className = "h-5 w-5" }: { className?: string }) {
 
 const PERKS = [
   { icon: <IconWhatsApp className="h-4 w-4" />, text: "Send order requests straight to Bikoom's WhatsApp" },
-  { icon: <IconMapPin className="h-4 w-4" />, text: "Based in Ogoja — delivery arranged for other states" },
+  { icon: <IconCheck className="h-4 w-4" />, text: "Ask on WhatsApp about our location and service availability" },
   { icon: <IconCheck className="h-4 w-4" />, text: "Browse laptops, phones, furniture, Starlink & services" },
 ];
 
@@ -77,7 +77,7 @@ export default function SignIn() {
           </ul>
         </div>
         <p className="relative mt-10 text-xs text-ink-500">
-          {brand.name} · {brand.location}
+          {brand.name}
         </p>
       </div>
 
@@ -135,16 +135,16 @@ export default function SignIn() {
 
           <div className="mt-6 grid grid-cols-3 gap-3 text-center text-[11px] font-semibold text-ink-500">
             <div className="rounded-xl bg-white p-3 ring-1 ring-ink-200/70">
-              Ogoja
-              <span className="mt-0.5 block font-normal text-ink-400">based</span>
-            </div>
-            <div className="rounded-xl bg-white p-3 ring-1 ring-ink-200/70">
               WhatsApp
-              <span className="mt-0.5 block font-normal text-ink-400">orders</span>
+              <span className="mt-0.5 block font-normal text-ink-400">support</span>
             </div>
             <div className="rounded-xl bg-white p-3 ring-1 ring-ink-200/70">
               Delivery
               <span className="mt-0.5 block font-normal text-ink-400">on request</span>
+            </div>
+            <div className="rounded-xl bg-white p-3 ring-1 ring-ink-200/70">
+              Orders
+              <span className="mt-0.5 block font-normal text-ink-400">on WhatsApp</span>
             </div>
           </div>
         </div>

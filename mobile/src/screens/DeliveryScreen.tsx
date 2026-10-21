@@ -154,11 +154,22 @@ export default function DeliveryScreen() {
           Delivery / waybill request
         </Text>
         <Text style={{ fontSize: 13.5, color: colors.brand700, lineHeight: 20 }}>
-          Ordering from outside Ogoja — or need an item moved? Tell us where it's
-          going and we'll arrange delivery with you. Cost and timeline are always
+          Need an item delivered? Tell us the destination and we can arrange
+          delivery with you. Cost and timeline are always
           discussed directly; there are no fixed delivery prices.
         </Text>
       </View>
+
+      <Button
+        title="Ask about our location on WhatsApp"
+        variant="outline"
+        fullWidth
+        onPress={() =>
+          void Linking.openURL(
+            waLink("Hi, could you share your location and visiting details?"),
+          )
+        }
+      />
 
       <View
         style={{
@@ -258,9 +269,8 @@ export default function DeliveryScreen() {
           {"1. Send this request with your details.\n2. Bikoom replies on WhatsApp with cost and timing.\n3. You agree, and your item is dispatched."}
         </Text>
         <Text style={{ fontSize: 12.5, color: colors.ink500, lineHeight: 19 }}>
-          {brand.shortName} delivers from Ogoja to other states via trusted
-          waybill partners. Photocopying and printing are in-person services
-          available in Ogoja only.
+          Message us on WhatsApp for our location, visiting details, service
+          availability and delivery options.
         </Text>
       </View>
     </ScrollView>

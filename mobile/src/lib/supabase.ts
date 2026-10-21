@@ -12,18 +12,20 @@ import { SUPABASE_ANON_KEY, SUPABASE_URL, supabaseConfigured } from "../config";
  * which silently breaks auth. AsyncStorage is the approach recommended
  * by Supabase's own React Native guide for this reason.
  */
-export const supabase: SupabaseClient = createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
-  auth: {
-    storage: AsyncStorage,
-    autoRefreshToken: true,
-    persistSession: true,
-    detectSessionInUrl: false,
-    flowType: "pkce",
-  },
-});
+export const supabase: SupabaseClient | null = supabaseConfigured
+  ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+      auth: {
+        storage: AsyncStorage,
+        autoRefreshToken: true,
+        persistSession: true,
+        detectSessionInUrl: false,
+        flowType: "pkce",
+      },
+    })
+  : null;
 
 export function requireSupabase(): SupabaseClient {
-  if (!supabaseConfigured) {
+  if (!supabase) {
     throw new Error(
       "Supabase is not configured (EXPO_PUBLIC_SUPABASE_URL / EXPO_PUBLIC_SUPABASE_ANON_KEY).",
     );

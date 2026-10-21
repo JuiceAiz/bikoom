@@ -1,7 +1,6 @@
-# Bikoom Stores
+# Bikoom Hubs Ltd
 
-Storefront for **Bikoom Stores** — a small business in Ogoja, Cross River State, Nigeria
-(new and A1 London-used office equipment, furniture, Starlink installation, photocopying/printing and more).
+Storefront for **Bikoom Hubs Ltd** — new and A1 London-used office equipment, furniture, Starlink installation, photocopying/printing and more.
 
 Customers browse the shop, build an order request, and continue to **WhatsApp** where
 prices, payment and delivery are finalised. There is **no online payment**.
@@ -37,6 +36,9 @@ only for the admin dashboard**.
 
 1. Create a project at [supabase.com](https://supabase.com).
 2. In the SQL editor, run `supabase/schema.sql`, then `supabase/seed.sql`.
+   For a database that already has the old demo copy, also run
+   `supabase/remove-location-copy.sql` to remove it from existing products
+   and banners.
 3. Authentication → Providers → enable **Google** (Google Cloud OAuth client,
    redirect URI `https://<ref>.supabase.co/auth/v1/callback`).
 4. Authentication → URL Configuration → Site URL `http://localhost:5173`,
@@ -82,9 +84,10 @@ shared/           Types + helpers shared by client and server
 
 ## Key rules encoded in the app
 
-- Sign-in is required site-wide; only `profiles.is_admin` (or `ADMIN_EMAILS`)
-  users can open `/admin` — enforced again server-side on every admin route.
-- Photocopying/printing is labelled **Ogoja only**; other products ship by
-  requested delivery with **no fixed delivery prices**.
+- Browsing and order requests are available without signing in; only
+  `profiles.is_admin` (or `ADMIN_EMAILS`) users can open `/admin` — enforced
+  again server-side on every admin route.
+- Customers can ask about the business location and service availability on
+  WhatsApp; delivery details and costs are agreed directly.
 - Products can show a price or **"Contact for Price"**; availability and
   featured status are managed from the dashboard.

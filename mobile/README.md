@@ -1,4 +1,4 @@
-# Bikoom Stores — mobile app (React Native + Expo)
+# Bikoom Hubs Ltd — mobile app (React Native + Expo)
 
 The store in your pocket: customers browse, search, cart and send order /
 waybill requests on WhatsApp — and staff manage products, categories,
@@ -20,6 +20,15 @@ npx expo start       # scan the QR code with Expo Go
   project `elqsaigcplovujdgvdak` (see the repo root docs / schema.sql
   "Realtime" section). Without it the app still works — it just refreshes
   on pull/manual loads.
+
+## Cloud builds
+
+EAS preview and production builds use their matching EAS environments. Keep
+`EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`,
+`EXPO_PUBLIC_API_URL`, and `EXPO_PUBLIC_WHATSAPP_NUMBER` set in both
+environments; local `.env` files are not uploaded to cloud builds. If Supabase
+is not configured, the app now stays open and reports a store-loading error
+instead of crashing at startup.
 
 ## Google sign-in (how it works)
 

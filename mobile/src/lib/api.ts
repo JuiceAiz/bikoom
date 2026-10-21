@@ -10,13 +10,13 @@ import type {
   Product,
   RequestStatus,
 } from "../../../shared/types";
-import { supabase } from "./supabase";
+import { requireSupabase } from "./supabase";
 
 const JSON_HEADERS = { "Content-Type": "application/json" };
 
 async function authHeaders(): Promise<Record<string, string>> {
   if (!supabaseConfigured) return {};
-  const { data } = await supabase.auth.getSession();
+  const { data } = await requireSupabase().auth.getSession();
   const token = data.session?.access_token;
   return token ? { Authorization: `Bearer ${token}` } : {};
 }

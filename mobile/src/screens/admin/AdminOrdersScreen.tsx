@@ -242,7 +242,7 @@ export default function AdminOrdersScreen() {
                 onPress={() => {
                   void Linking.openURL(
                     waLink(
-                      `Hello ${order.customer_name}, this is Bikoom Stores replying to your order request from the website. Let's confirm your items, final prices and delivery.`,
+                      `Hello ${order.customer_name}, this is Bikoom Hubs Ltd replying to your order request from the website. Let's confirm your items, final prices and delivery.`,
                       waNumberFromPhone(order.customer_phone),
                     ),
                   );
@@ -255,7 +255,7 @@ export default function AdminOrdersScreen() {
                   opacity: updatingId === order.id ? 0.6 : 1,
                 }}
               >
-                <Text style={{ color: colors.white, fontWeight: "800", fontSize: 13 }}>
+                <Text style={{ color: colors.pureWhite, fontWeight: "800", fontSize: 13 }}>
                   Reply on WhatsApp
                 </Text>
               </Pressable>

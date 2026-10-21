@@ -2,17 +2,17 @@
   "name": "bikoom-store",
   "private": true,
   "version": "1.0.0",
-  "description": "Bikoom Store \u2014 small-business storefront for Ogoja, Nigeria",
+  "description": "Bikoom Hubs Ltd — small-business storefront",
   "type": "module",
   "scripts": {
-    "dev": "node api.js && concurrently -n api,web -c cyan,magenta \"npm:dev:api\" \"npm:dev:web\"",
+    "dev": "concurrently -n api,web -c cyan,magenta \"npm:dev:api\" \"npm:dev:web\"",
     "dev:api": "tsx watch server/index.ts",
     "dev:web": "vite",
-    "build": "node api.js && tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview",
     "db:sql": "node scripts/run-sql.mjs",
-    "start": "node api.js && cross-env NODE_ENV=production tsx server/index.ts"
+    "start": "cross-env NODE_ENV=production tsx server/index.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.0",
