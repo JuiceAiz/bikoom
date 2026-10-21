@@ -2,7 +2,7 @@
   "name": "bikoom-store",
   "private": true,
   "version": "1.0.0",
-  "description": "Bikoom Hubs Ltd — small-business storefront",
+  "description": "Bikoom Hubs — small-business storefront",
   "type": "module",
   "scripts": {
     "dev": "concurrently -n api,web -c cyan,magenta \"npm:dev:api\" \"npm:dev:web\"",

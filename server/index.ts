@@ -23,7 +23,7 @@ app.use(express.json({ limit: "1mb" }));
 app.get("/api/health", (_req: Request, res: Response) => {
   res.json({
     ok: true,
-    store: "Bikoom Hubs Ltd",
+    store: "Bikoom Hubs",
     configured: isConfigured(),
     missing: missingEnv(),
     mailgunConfigured: mailgunConfigured(),
@@ -140,7 +140,7 @@ app.use(
 // must not call listen(); locally we start the HTTP server as usual.
 if (!process.env.VERCEL) {
   app.listen(config.port, () => {
-    console.log(`\n  Bikoom Hubs Ltd API listening on http://localhost:${config.port}`);
+    console.log(`\n  Bikoom Hubs API listening on http://localhost:${config.port}`);
     if (!isConfigured()) {
       console.warn(
         `  ⚠ Not configured — missing env vars: ${missingEnv().join(", ")}`,

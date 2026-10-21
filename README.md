@@ -1,6 +1,6 @@
-# Bikoom Hubs Ltd
+# Bikoom Hubs
 
-Storefront for **Bikoom Hubs Ltd** — new and A1 London-used office equipment, furniture, Starlink installation, photocopying/printing and more.
+Storefront for **Bikoom Hubs** — new and A1 London-used office equipment, furniture, Starlink installation, photocopying/printing and more.
 
 Customers browse the shop, build an order request, and continue to **WhatsApp** where
 prices, payment and delivery are finalised. There is **no online payment**.

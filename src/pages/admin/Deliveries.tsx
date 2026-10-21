@@ -183,7 +183,7 @@ export function AdminDeliveries() {
 
               <a
                 href={waLink(
-                  `Hello ${request.name}, this is Bikoom Hubs Ltd about your delivery/waybill request to ${request.location}. Let's confirm the details and delivery cost.`,
+                  `Hello ${request.name}, this is Bikoom Hubs about your delivery/waybill request to ${request.location}. Let's confirm the details and delivery cost.`,
                   waNumberFromPhone(request.phone),
                 )}
                 target="_blank"
