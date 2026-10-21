@@ -11,7 +11,7 @@ export const PLACEHOLDER_WHATSAPP = "2348000000000";
 export const brand = {
   name: "Bikoom Hubs",
   shortName: "Bikoom",
-  tagline: "Office equipment & more — new and A1 London used, delivered to your door.",
+  tagline: "Office Equipment & More",
   description:
     "Bikoom Hubs sells new and A1 London-used office equipment — laptops, phones, furniture, printers and Starlink kits — plus services like photocopying, printing and device setup.",
   hours: "Monday – Saturday, 8am – 6pm (WAT)",

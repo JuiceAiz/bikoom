@@ -12,13 +12,32 @@ import { requireSupabase } from "../lib/supabaseClient";
 
 type LoadState = "loading" | "ready" | "error";
 
-const CATEGORY_ICONS: Record<string, string> = {
-  laptops: "💻",
-  phones: "📱",
-  furniture: "🪑",
-  starlink: "📡",
-  services: "🖨️",
-  other: "🛍️",
+const CATEGORY_IMAGES: Record<string, { src: string; source: string }> = {
+  laptops: {
+    src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/bd/Laptop_computer.jpeg/960px-Laptop_computer.jpeg",
+    source: "https://commons.wikimedia.org/wiki/File:Laptop_computer.jpeg",
+  },
+  phones: {
+    src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/b/be/Blackview_A60_Smartphone_Android_mobile_phone_and_folio_case.jpg/960px-Blackview_A60_Smartphone_Android_mobile_phone_and_folio_case.jpg",
+    source:
+      "https://commons.wikimedia.org/wiki/File:Blackview_A60_Smartphone_Android_mobile_phone_and_folio_case.jpg",
+  },
+  furniture: {
+    src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d4/Buerostuhl_%28fcm%29.jpg/960px-Buerostuhl_%28fcm%29.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:Buerostuhl_(fcm).jpg",
+  },
+  starlink: {
+    src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/d/d0/Starlink_Dish_20250111_101122.jpg/960px-Starlink_Dish_20250111_101122.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:Starlink_Dish_20250111_101122.jpg",
+  },
+  services: {
+    src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/93/Epson_EP-803A_1.jpg/960px-Epson_EP-803A_1.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:Epson_EP-803A_1.jpg",
+  },
+  other: {
+    src: "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c2/ELECOM_WRC-300FEBK_WPS_WiFi_router.jpg/960px-ELECOM_WRC-300FEBK_WPS_WiFi_router.jpg",
+    source: "https://commons.wikimedia.org/wiki/File:ELECOM_WRC-300FEBK_WPS_WiFi_router.jpg",
+  },
 };
 
 const TRUST_ITEMS = [
@@ -47,7 +66,7 @@ export default function Home() {
         .from("products")
         .select("*, category:categories(id, name, slug)")
         .order("created_at", { ascending: false })
-        .limit(16),
+        .limit(100),
     ])
       .then(([bannerRes, categoryRes, productRes]) => {
         const firstError = bannerRes.error ?? categoryRes.error ?? productRes.error;
@@ -96,7 +115,7 @@ export default function Home() {
         <div className="page-container relative grid items-center gap-12 py-16 lg:grid-cols-2 lg:py-24">
           <div>
             <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-              {hero?.title ?? brand.tagline}
+              {brand.tagline}
             </h1>
             <p className="mt-5 max-w-xl text-base leading-relaxed text-ink-300 sm:text-lg">
               {hero?.subtitle ??
@@ -107,14 +126,6 @@ export default function Home() {
                 Browse the shop
                 <IconArrowRight className="h-4 w-4" />
               </Link>
-              <a
-                href={waLink(buildGeneralMessage())}
-                target="_blank"
-                rel="noreferrer"
-                className={buttonClass("whatsapp", "lg")}
-              >
-                <IconWhatsApp className="h-4 w-4" /> Chat on WhatsApp
-              </a>
             </div>
           </div>
 
@@ -185,20 +196,43 @@ export default function Home() {
           </div>
         ) : (
           <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-            {categories.map((category) => (
-              <Link
-                key={category.id}
-                to={`/category/${category.slug}`}
-                className="group flex flex-col items-center gap-2 rounded-2xl border border-ink-200/70 bg-white p-5 text-center shadow-sm transition hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-md"
-              >
-                <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-ink-100 text-2xl">
-                  {CATEGORY_ICONS[category.slug] ?? "🛍️"}
-                </span>
-                <span className="font-display text-sm font-bold text-ink-900 group-hover:text-brand-700">
-                  {category.name}
-                </span>
-              </Link>
-            ))}
+            {categories.map((category) => {
+              const productImage = products.find(
+                (product) =>
+                  product.category?.slug === category.slug && product.image_url,
+              )?.image_url;
+              const fallback =
+                CATEGORY_IMAGES[category.slug] ?? CATEGORY_IMAGES.other;
+
+              return (
+                <div
+                  key={category.id}
+                  className="group overflow-hidden rounded-2xl border border-ink-200/70 bg-white text-center shadow-sm transition hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-md"
+                >
+                  <Link to={`/category/${category.slug}`} className="block">
+                    <img
+                      src={productImage ?? fallback.src}
+                      alt={`${category.name} products`}
+                      loading="lazy"
+                      className="aspect-[4/3] w-full object-cover"
+                    />
+                    <span className="block px-3 py-3 font-display text-sm font-bold text-ink-900 group-hover:text-brand-700">
+                      {category.name}
+                    </span>
+                  </Link>
+                  {!productImage ? (
+                    <a
+                      href={fallback.source}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="mb-2 inline-block text-[10px] text-ink-400 underline decoration-ink-300 underline-offset-2"
+                    >
+                      Photo source
+                    </a>
+                  ) : null}
+                </div>
+              );
+            })}
           </div>
         )}
       </section>

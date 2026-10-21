@@ -40,7 +40,7 @@ export function Wordmark({
 export function Logo({ tone = "dark" }: { tone?: "dark" | "light" }) {
   return (
     <span className="flex items-center gap-2">
-      <LogoMark className="h-9 w-9 sm:h-10 sm:w-10" />
+      <LogoMark className="h-11 w-11 sm:h-12 sm:w-12" />
       <Wordmark
         tone={tone}
         className="text-base sm:text-lg max-[359px]:text-sm"
