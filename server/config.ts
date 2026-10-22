@@ -30,7 +30,6 @@ export const config = {
     .split(",")
     .map((email) => email.toLowerCase())
     .filter(Boolean),
-  whatsappNumber: str(env.WHATSAPP_NUMBER || env.VITE_WHATSAPP_NUMBER),
 };
 
 /** Env vars the server cannot run without. */

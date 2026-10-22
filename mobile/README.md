@@ -25,7 +25,7 @@ npx expo start       # scan the QR code with Expo Go
 
 EAS preview and production builds use their matching EAS environments. Keep
 `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`,
-`EXPO_PUBLIC_API_URL`, and `EXPO_PUBLIC_WHATSAPP_NUMBER` set in both
+`EXPO_PUBLIC_API_URL` set in both
 environments; local `.env` files are not uploaded to cloud builds. If Supabase
 is not configured, the app now stays open and reports a store-loading error
 instead of crashing at startup.
@@ -101,5 +101,4 @@ Key files: `src/lib/realtime.ts` (subscriptions), `src/lib/api.ts`
 - Sessions persist in AsyncStorage (expo-secure-store caps values at 2KB;
   Supabase sessions exceed that).
 - `EXPO_PUBLIC_*` values are public by design — they ship in the bundle.
-- The WhatsApp number placeholder (`2348000000000`) is replaced via
-  `EXPO_PUBLIC_WHATSAPP_NUMBER`.
+- Store WhatsApp links use the business number configured in `src/config.ts`.

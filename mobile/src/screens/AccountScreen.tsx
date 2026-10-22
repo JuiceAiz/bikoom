@@ -2,9 +2,9 @@ import { useNavigation } from "@react-navigation/native";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { Pressable, ScrollView, Text, View } from "react-native";
 
-import { Badge, Button, Callout, useTopInset } from "../components/ui";
+import { Badge, Button, useTopInset } from "../components/ui";
 import { useAuth } from "../context/AuthContext";
-import { brand, usesPlaceholderWhatsApp } from "../config";
+import { brand } from "../config";
 import { colors, radius } from "../theme";
 
 type Nav = NativeStackNavigationProp<Record<string, object | undefined>>;
@@ -123,13 +123,6 @@ export default function AccountScreen() {
         />
         <Row label="Visit our website" value="bikoom.vercel.app" />
       </View>
-
-      {usesPlaceholderWhatsApp ? (
-        <Callout tone="warning">
-          WhatsApp number is still the placeholder — set EXPO_PUBLIC_WHATSAPP_NUMBER
-          before release.
-        </Callout>
-      ) : null}
 
       {/* About */}
       <View

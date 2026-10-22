@@ -143,11 +143,10 @@ export default function HomeScreen() {
               lineHeight: 36,
             }}
           >
-            {hero?.title ?? brand.tagline}
+            {brand.tagline}
           </Text>
           <Text style={{ color: colors.ink300, fontSize: 15, lineHeight: 22 }}>
-            {hero?.subtitle ??
-              "New and A1 London-used office equipment, furniture, Starlink installation and services — with every order confirmed with you personally on WhatsApp."}
+            {brand.heroSubtitle}
           </Text>
           <View style={{ flexDirection: "row", gap: 10, marginTop: 4 }}>
             <Button

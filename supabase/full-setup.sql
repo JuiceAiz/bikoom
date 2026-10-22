@@ -511,7 +511,7 @@ on conflict (slug) do nothing;
 insert into public.banners (title, subtitle, image_url, link_url, is_active, sort_order)
 select b.title, b.subtitle, null, b.link_url, true, b.sort_order
 from (values
-  ('Office Equipment & More',
+  ('Office Equipments & More',
    'New and A1 London-used office equipment, honest prices and after-sale support. Every order is confirmed with you on WhatsApp.',
    '/shop', 1),
 

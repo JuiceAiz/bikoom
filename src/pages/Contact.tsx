@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { brand, usesPlaceholderWhatsApp } from "../brand";
+import { brand } from "../brand";
 import {
   IconClock,
   IconMail,
@@ -65,11 +65,6 @@ export default function Contact() {
           >
             Start a chat
           </a>
-          {usesPlaceholderWhatsApp ? (
-            <p className="mt-2 text-[11px] font-medium text-amber-600">
-              Demo number — set VITE_WHATSAPP_NUMBER in .env.
-            </p>
-          ) : null}
         </div>
 
         <div className="flex flex-col rounded-2xl border border-ink-200/70 bg-white p-6 shadow-sm">

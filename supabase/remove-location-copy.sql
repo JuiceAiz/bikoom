@@ -45,7 +45,7 @@ and (
 update public.banners
 set
   title = case
-    when title = 'Office Equipment & More in Ogoja' then 'Office Equipment & More'
+    when title = 'Office Equipment & More in Ogoja' then 'Office Equipments & More'
     when title = 'Photocopying & Printing — Ogoja Only' then 'Photocopying & Printing'
     else title
   end,

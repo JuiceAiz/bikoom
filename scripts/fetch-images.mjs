@@ -70,7 +70,7 @@ const QUERIES = {
 };
 
 const BANNER_QUERIES = {
-  "Office Equipment & More": ["office equipment desk", "laptop computer desk"],
+  "Office Equipments & More": ["office equipment desk", "laptop computer desk"],
   "Starlink Installation, Done Right": ["Starlink dish", "Starlink antenna"],
   "Photocopying & Printing": ["photocopier office", "office printer"],
 };

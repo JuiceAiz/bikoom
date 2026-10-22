@@ -56,8 +56,8 @@ Without them the app still works — notification e-mails are logged and skipped
 
 ### WhatsApp
 
-Set `WHATSAPP_NUMBER` / `VITE_WHATSAPP_NUMBER` (international format,
-e.g. `2348031234567`). The demo default in `src/brand.ts` is a placeholder.
+Store WhatsApp links use the business number configured in `src/brand.ts`
+(international format, digits only).
 
 ## Scripts
 

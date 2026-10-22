@@ -3,26 +3,21 @@
  * Mirrors the web app's src/brand.ts so both stay in sync.
  */
 
-const envWhatsApp = (process.env.EXPO_PUBLIC_WHATSAPP_NUMBER ?? "").trim();
-
-/** Placeholder number — replace via EXPO_PUBLIC_WHATSAPP_NUMBER. */
-export const PLACEHOLDER_WHATSAPP = "2348000000000";
+/** Store WhatsApp number in international format, digits only. */
+export const WHATSAPP_NUMBER = "2348066481513";
 
 export const brand = {
   name: "Bikoom Hubs",
   shortName: "Bikoom",
-  tagline:
-    "Office equipment & more — new and A1 London used, delivered to your door.",
+  tagline: "Office Equipments & More",
+  heroSubtitle:
+    "New and A1 London-used office equipment, honest prices. Every order is confirmed with you on WhatsApp.",
   description:
     "Bikoom Hubs sells new and A1 London-used office equipment — laptops, phones, furniture, printers and Starlink kits — plus services like photocopying, printing and device setup.",
   hours: "Monday – Saturday, 8am – 6pm (WAT)",
-  /** International format, digits only, no +. */
-  whatsappNumber: envWhatsApp || PLACEHOLDER_WHATSAPP,
+  whatsappNumber: WHATSAPP_NUMBER,
   contactEmail: "hello@bikoomstore.com",
 } as const;
-
-export const usesPlaceholderWhatsApp =
-  brand.whatsappNumber === PLACEHOLDER_WHATSAPP;
 
 /** Express API base (orders, deliveries, admin). */
 export const API_URL = (
